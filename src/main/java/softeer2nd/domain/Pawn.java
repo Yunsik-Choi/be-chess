@@ -9,6 +9,10 @@ public class Pawn {
         this.color = color;
     }
 
+    public String getColor() {
+        return this.color;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
