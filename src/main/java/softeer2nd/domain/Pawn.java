@@ -3,6 +3,9 @@ package softeer2nd.domain;
 import java.util.Objects;
 
 public class Pawn {
+    protected static final String WHITE_COLOR = "white";
+    protected static final String BLACK_COLOR = "black";
+
     private final String color;
 
     public Pawn() {

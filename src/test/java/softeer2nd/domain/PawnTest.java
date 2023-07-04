@@ -2,6 +2,8 @@ package softeer2nd.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static softeer2nd.domain.Pawn.BLACK_COLOR;
+import static softeer2nd.domain.Pawn.WHITE_COLOR;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,12 +12,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 @DisplayName("폰 관련 기능")
 public class PawnTest {
-    private static final String PAWN_COLOR_WHITE = "white";
-    private static final String PAWN_COLOR_BLACK = "black";
-
     @DisplayName("생성자로 전달된 색상인 white 또는 black 으로 폰이 생성되어야 한다")
     @ParameterizedTest(name = "color : {0}")
-    @ValueSource(strings = {PAWN_COLOR_WHITE, PAWN_COLOR_BLACK})
+    @ValueSource(strings = {WHITE_COLOR, BLACK_COLOR})
     public void create(final String color) {
         Pawn pawn = new Pawn(color);
 
@@ -27,7 +26,7 @@ public class PawnTest {
     public void create_기본생성자() throws Exception {
         Pawn pawn = new Pawn();
 
-        assertEquals("white", pawn.getColor());
+        assertEquals(WHITE_COLOR, pawn.getColor());
     }
 
     private void verifyPawnBy(final Pawn pawn, final String color) {
