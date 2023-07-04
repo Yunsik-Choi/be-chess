@@ -1,8 +1,10 @@
 package softeer2nd.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -18,6 +20,14 @@ public class PawnTest {
         Pawn pawn = new Pawn(color);
 
         verifyPawnBy(pawn, color);
+    }
+
+    @DisplayName("폰을 기본생성자로 생성한다.")
+    @Test
+    public void create_기본생성자() throws Exception {
+        Pawn pawn = new Pawn();
+
+        assertEquals("white", pawn.getColor());
     }
 
     private void verifyPawnBy(final Pawn pawn, final String color) {
