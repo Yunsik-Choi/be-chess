@@ -1,6 +1,7 @@
 package softeer2nd.chess;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -50,6 +51,14 @@ public class BoardTest {
                 () -> assertThat(board.findPawn(0)).isEqualTo(white),
                 () -> assertThat(board.findPawn(1)).isEqualTo(black)
         );
+    }
+
+    @DisplayName("체스판의 기물 수보다 큰 순번으로 가져올 경우 예외 처리한다.")
+    @Test
+    void findPawnIndexOutOfBoundsException() {
+        board.add(white);
+
+        assertThatThrownBy(() -> board.findPawn(1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
     @DisplayName("체스 판에 추가된 Pawn 의 개수를 반환한다.")
