@@ -3,7 +3,6 @@ package softeer2nd.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -45,9 +44,29 @@ public class BoardTest {
         board.add(white);
 
         assertAll(
-                () -> Assertions.assertThat(board.findPawn(0)).isEqualTo(white),
-                () -> Assertions.assertThat(board.findPawn(1)).isEqualTo(black)
+                () -> assertThat(board.findPawn(0)).isEqualTo(white),
+                () -> assertThat(board.findPawn(1)).isEqualTo(black)
         );
+    }
+
+    @DisplayName("체스 판에 추가된 Pawn 의 개수를 반환한다.")
+    @Test
+    void size() {
+        Board board = new Board();
+
+        assertThat(board.size()).isZero();
+
+        Pawn white = new Pawn(Pawn.WHITE_COLOR);
+
+        board.add(white);
+
+        assertThat(board.size()).isOne();
+
+        Pawn black = new Pawn(Pawn.BLACK_COLOR);
+
+        board.add(black);
+
+        assertThat(board.size()).isEqualTo(2);
     }
 
     private void verifyAddPawn(final Board board, final int boardSize, final Pawn pawn, final int pawnIndex) {
