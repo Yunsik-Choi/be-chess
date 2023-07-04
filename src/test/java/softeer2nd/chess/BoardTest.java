@@ -88,6 +88,22 @@ public class BoardTest {
         );
     }
 
+    @DisplayName("흰색 Pawn의 결과를 출력한다.")
+    @Test
+    void getWhitePawnResult() {
+        board.initialize();
+
+        assertEquals("pppppppp", board.getWhitePawnsResult());
+    }
+
+    @DisplayName("검은색 Pawn의 결과를 출력한다.")
+    @Test
+    void getBlackPawnResult() {
+        board.initialize();
+
+        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+    }
+
     private void verifyAddPawn(final Board board, final int boardSize, final Pawn pawn, final int pawnIndex) {
         assertAll(
                 () -> assertThat(boardSize).isEqualTo(board.size()),
