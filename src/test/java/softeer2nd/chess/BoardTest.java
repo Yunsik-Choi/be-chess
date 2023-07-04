@@ -2,8 +2,10 @@ package softeer2nd.chess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,6 +75,17 @@ public class BoardTest {
         board.add(black);
 
         assertThat(board.size()).isEqualTo(2);
+    }
+
+    @DisplayName("체스판을 초기화한다.")
+    @Test
+    void initialize() {
+        board.initialize();
+
+        assertAll(
+                () -> assertEquals("pppppppp", board.getWhitePawnsResult()),
+                () -> assertEquals("PPPPPPPP", board.getBlackPawnsResult())
+        );
     }
 
     private void verifyAddPawn(final Board board, final int boardSize, final Pawn pawn, final int pawnIndex) {
