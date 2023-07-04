@@ -9,4 +9,8 @@ public class Board {
     public void add(final Pawn pawn) {
         pawns.add(pawn);
     }
+
+    public Pawn findPawn(final int index) {
+        return pawns.get(index);
+    }
 }
