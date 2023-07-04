@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.domain.chess.pieces.Pawn;
+import softeer2nd.domain.chess.pieces.Point;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {
@@ -20,8 +21,8 @@ public class BoardTest {
     @BeforeEach
     void setUp() {
         this.board = new Board();
-        this.white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
-        this.black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+        this.white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, new Point(0, 0));
+        this.black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, new Point(0, 1));
     }
 
     @DisplayName("체스 판을 생성한다.")

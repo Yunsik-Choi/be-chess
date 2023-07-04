@@ -11,13 +11,16 @@ public class Pawn {
     private final String color;
     private final String representation;
 
-    public Pawn() {
-        this(WHITE_COLOR, WHITE_REPRESENTATION);
+    private Point point;
+
+    public Pawn(final Point point) {
+        this(WHITE_COLOR, WHITE_REPRESENTATION, point);
     }
 
-    public Pawn(final String color, final String representation) {
+    public Pawn(final String color, final String representation, final Point point) {
         this.color = color;
         this.representation = representation;
+        this.point = point;
     }
 
     public String getColor() {
@@ -26,6 +29,10 @@ public class Pawn {
 
     public String getRepresentation() {
         return this.representation;
+    }
+
+    public Point getPoint() {
+        return this.point;
     }
 
     @Override

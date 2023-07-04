@@ -18,23 +18,23 @@ public class PawnTest {
 
     @BeforeEach
     void setUp() {
-        this.white = new Pawn(WHITE_COLOR, WHITE_REPRESENTATION);
-        this.black = new Pawn(BLACK_COLOR, BLACK_REPRESENTATION);
+        this.white = new Pawn(WHITE_COLOR, WHITE_REPRESENTATION, new Point(0, 0));
+        this.black = new Pawn(BLACK_COLOR, BLACK_REPRESENTATION, new Point(0, 1));
     }
 
     @DisplayName("생성자로 전달된 색상인 white 또는 black 으로 폰이 생성되어야 한다")
     @Test
     public void create() {
-        verifyPawnBy(white, WHITE_COLOR, WHITE_REPRESENTATION);
-        verifyPawnBy(black, BLACK_COLOR, BLACK_REPRESENTATION);
+        verifyPawnBy(white, WHITE_COLOR, WHITE_REPRESENTATION, 0, 0);
+        verifyPawnBy(black, BLACK_COLOR, BLACK_REPRESENTATION, 0, 1);
     }
 
     @DisplayName("폰을 기본생성자로 생성한다.")
     @Test
     public void create_기본생성자() {
-        Pawn pawn = new Pawn();
+        Pawn pawn = new Pawn(new Point(0, 0));
 
-        verifyPawnBy(pawn, WHITE_COLOR, WHITE_REPRESENTATION);
+        verifyPawnBy(pawn, WHITE_COLOR, WHITE_REPRESENTATION, 0, 0);
     }
 
     @DisplayName("폰의 출력 문자열을 반환한다.")
@@ -46,10 +46,18 @@ public class PawnTest {
         );
     }
 
-    private void verifyPawnBy(final Pawn pawn, final String color, final String representation) {
+    private void verifyPawnBy(
+            final Pawn pawn,
+            final String color,
+            final String representation,
+            final int x,
+            final int y
+    ) {
         assertAll(
                 () -> assertThat(pawn.getColor()).isEqualTo(color),
-                () -> assertThat(pawn.getRepresentation()).isEqualTo(representation)
+                () -> assertThat(pawn.getRepresentation()).isEqualTo(representation),
+                () -> assertThat(pawn.getPoint().getX()).isEqualTo(x),
+                () -> assertThat(pawn.getPoint().getY()).isEqualTo(y)
         );
     }
 }
