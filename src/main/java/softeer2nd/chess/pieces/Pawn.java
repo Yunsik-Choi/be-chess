@@ -5,19 +5,27 @@ import java.util.Objects;
 public class Pawn {
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
+    public static final String WHITE_REPRESENTATION = "p";
+    public static final String BLACK_REPRESENTATION = "P";
 
     private final String color;
+    private final String representation;
 
     public Pawn() {
-        this("white");
+        this(WHITE_COLOR, WHITE_REPRESENTATION);
     }
 
-    public Pawn(final String color) {
+    public Pawn(final String color, final String representation) {
         this.color = color;
+        this.representation = representation;
     }
 
     public String getColor() {
         return this.color;
+    }
+
+    public String getRepresentation() {
+        return this.representation;
     }
 
     @Override
