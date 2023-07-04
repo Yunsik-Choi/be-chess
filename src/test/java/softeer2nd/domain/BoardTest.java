@@ -41,7 +41,7 @@ public class BoardTest {
         Pawn black = new Pawn(Pawn.BLACK_COLOR);
 
         board.add(white);
-        board.add(white);
+        board.add(black);
 
         assertAll(
                 () -> assertThat(board.findPawn(0)).isEqualTo(white),
