@@ -12,6 +12,9 @@ public class Board {
     }
 
     public Pawn findPawn(final int index) {
+        if (pawns.size() <= index) {
+            throw new IndexOutOfBoundsException("체스 판에 추가된 기물의 수보다 큽니다.");
+        }
         return pawns.get(index);
     }
 
