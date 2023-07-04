@@ -1,17 +1,16 @@
 package softeer2nd;
 
 import softeer2nd.controller.ChessGameController;
-import softeer2nd.domain.chess.Board;
+import softeer2nd.view.ConsoleInputView;
 import softeer2nd.view.ConsoleOutputView;
 
 public class Main {
     public static void main(String[] args) {
-        ChessGameController chessGameController = new ChessGameController(new ConsoleOutputView());
+        ChessGameController chessGameController = new ChessGameController(
+                new ConsoleOutputView(),
+                new ConsoleInputView()
+        );
 
-        Board board = new Board();
-
-        board.initialize();
-
-        chessGameController.print(board);
+        chessGameController.main();
     }
 }
