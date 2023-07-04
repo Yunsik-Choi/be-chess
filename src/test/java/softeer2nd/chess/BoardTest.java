@@ -1,16 +1,17 @@
-package softeer2nd.domain;
+package softeer2nd.chess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.pieces.Pawn;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {
     @DisplayName("체스 판을 생성한다.")
     @Test
-    public void create() throws Exception {
+    public void create() {
         Board board = new Board();
 
         Pawn white = new Pawn(Pawn.WHITE_COLOR);

@@ -1,7 +1,8 @@
-package softeer2nd.domain;
+package softeer2nd.chess;
 
 import java.util.ArrayList;
 import java.util.List;
+import softeer2nd.chess.pieces.Pawn;
 
 public class Board {
     private final List<Pawn> pawns = new ArrayList<>();

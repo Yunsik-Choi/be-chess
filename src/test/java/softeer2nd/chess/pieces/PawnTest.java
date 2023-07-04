@@ -1,9 +1,9 @@
-package softeer2nd.domain;
+package softeer2nd.chess.pieces;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static softeer2nd.domain.Pawn.BLACK_COLOR;
-import static softeer2nd.domain.Pawn.WHITE_COLOR;
+import static softeer2nd.chess.pieces.Pawn.BLACK_COLOR;
+import static softeer2nd.chess.pieces.Pawn.WHITE_COLOR;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class PawnTest {
 
     @DisplayName("폰을 기본생성자로 생성한다.")
     @Test
-    public void create_기본생성자() throws Exception {
+    public void create_기본생성자() {
         Pawn pawn = new Pawn();
 
         assertEquals(WHITE_COLOR, pawn.getColor());

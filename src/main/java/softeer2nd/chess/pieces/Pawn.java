@@ -1,10 +1,10 @@
-package softeer2nd.domain;
+package softeer2nd.chess.pieces;
 
 import java.util.Objects;
 
 public class Pawn {
-    protected static final String WHITE_COLOR = "white";
-    protected static final String BLACK_COLOR = "black";
+    public static final String WHITE_COLOR = "white";
+    public static final String BLACK_COLOR = "black";
 
     private final String color;
 
