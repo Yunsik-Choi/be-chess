@@ -8,7 +8,8 @@ import softeer2nd.domain.chess.pieces.Pawn;
 import softeer2nd.domain.chess.pieces.Point;
 
 public class Board {
-    private static final int WIDTH_SIZE = 8;
+    public static final int WIDTH_SIZE = 8;
+    public static final int HEIGHT_SIZE = 8;
     private static final int WHITE_PAWN_Y = 1;
     private static final int BLACK_PAWN_Y = 6;
 
@@ -52,5 +53,9 @@ public class Board {
                 .map(Pawn::getRepresentation)
                 .filter(representation -> representation.equals(ownedRepresentation))
                 .collect(Collectors.joining());
+    }
+
+    public List<Pawn> getPawns() {
+        return pawns;
     }
 }
