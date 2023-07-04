@@ -1,15 +1,14 @@
-package softeer2nd.chess;
+package softeer2nd.domain.chess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.pieces.Pawn;
+import softeer2nd.domain.chess.pieces.Pawn;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {

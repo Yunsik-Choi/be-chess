@@ -1,4 +1,4 @@
-package softeer2nd.chess.pieces;
+package softeer2nd.domain.chess.pieces;
 
 import java.util.Objects;
 

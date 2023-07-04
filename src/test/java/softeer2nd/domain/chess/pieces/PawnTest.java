@@ -1,11 +1,11 @@
-package softeer2nd.chess.pieces;
+package softeer2nd.domain.chess.pieces;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
-import static softeer2nd.chess.pieces.Pawn.BLACK_COLOR;
-import static softeer2nd.chess.pieces.Pawn.BLACK_REPRESENTATION;
-import static softeer2nd.chess.pieces.Pawn.WHITE_COLOR;
-import static softeer2nd.chess.pieces.Pawn.WHITE_REPRESENTATION;
+import static softeer2nd.domain.chess.pieces.Pawn.BLACK_COLOR;
+import static softeer2nd.domain.chess.pieces.Pawn.BLACK_REPRESENTATION;
+import static softeer2nd.domain.chess.pieces.Pawn.WHITE_COLOR;
+import static softeer2nd.domain.chess.pieces.Pawn.WHITE_REPRESENTATION;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

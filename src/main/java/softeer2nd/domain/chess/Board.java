@@ -1,10 +1,10 @@
-package softeer2nd.chess;
+package softeer2nd.domain.chess;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import softeer2nd.chess.pieces.Pawn;
+import softeer2nd.domain.chess.pieces.Pawn;
 
 public class Board {
     private static final int WIDTH_SIZE = 8;
