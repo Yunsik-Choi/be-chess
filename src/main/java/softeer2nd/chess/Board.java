@@ -28,16 +28,17 @@ public class Board {
     }
 
     public String getWhitePawnsResult() {
-        return pawns.stream()
-                .map(Pawn::getRepresentation)
-                .filter(representation -> representation.equals(Pawn.WHITE_REPRESENTATION))
-                .collect(Collectors.joining());
+        return getPawnsResultOwnedBy(Pawn.WHITE_REPRESENTATION);
     }
 
     public String getBlackPawnsResult() {
+        return getPawnsResultOwnedBy(Pawn.BLACK_REPRESENTATION);
+    }
+
+    private String getPawnsResultOwnedBy(final String ownedRepresentation) {
         return pawns.stream()
                 .map(Pawn::getRepresentation)
-                .filter(representation -> representation.equals(Pawn.BLACK_REPRESENTATION))
+                .filter(representation -> representation.equals(ownedRepresentation))
                 .collect(Collectors.joining());
     }
 }
