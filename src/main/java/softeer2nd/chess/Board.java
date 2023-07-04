@@ -33,4 +33,11 @@ public class Board {
                 .filter(representation -> representation.equals(Pawn.WHITE_REPRESENTATION))
                 .collect(Collectors.joining());
     }
+
+    public String getBlackPawnsResult() {
+        return pawns.stream()
+                .map(Pawn::getRepresentation)
+                .filter(representation -> representation.equals(Pawn.BLACK_REPRESENTATION))
+                .collect(Collectors.joining());
+    }
 }
