@@ -19,8 +19,8 @@ public class BoardTest {
     @BeforeEach
     void setUp() {
         this.board = new Board();
-        this.white = new Pawn(Pawn.WHITE_COLOR);
-        this.black = new Pawn(Pawn.BLACK_COLOR);
+        this.white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
+        this.black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
     }
 
     @DisplayName("체스 판을 생성한다.")
