@@ -27,7 +27,7 @@ public class ChessGameController {
             }
             Board board = new Board();
             board.initialize();
-            outputView.print(board);
+            outputView.print(board.show());
         }
     }
 
