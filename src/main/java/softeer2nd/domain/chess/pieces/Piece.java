@@ -8,8 +8,7 @@ public class Piece {
 
     private final String color;
     private final PieceRepresentation representation;
-
-    private Point point;
+    private final Point point;
 
     public Piece(final PieceRepresentation representation, final Point point) {
         this(WHITE_COLOR, representation, point);
