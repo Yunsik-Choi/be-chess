@@ -110,4 +110,21 @@ public class BoardTest {
                 () -> assertThat(pawn).isEqualTo(board.findPawn(pawnIndex))
         );
     }
+
+    @DisplayName("체스판을 출력한다.")
+    @Test
+    void show() {
+        board.initialize();
+
+        assertThat(board.show()).isEqualTo(
+                "........\n"
+                        + "PPPPPPPP\n"
+                        + "........\n"
+                        + "........\n"
+                        + "........\n"
+                        + "........\n"
+                        + "pppppppp\n"
+                        + "........\n"
+        );
+    }
 }
