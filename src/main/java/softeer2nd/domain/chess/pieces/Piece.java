@@ -11,6 +11,14 @@ public class Piece {
         this.representation = representation;
     }
 
+    public static Piece createWhitePawn() {
+        return new Piece(PieceColor.WHITE, PieceRepresentation.WHITE_REPRESENTATION);
+    }
+
+    public static Piece createBlackPawn() {
+        return new Piece(PieceColor.BLACK, PieceRepresentation.BLACK_REPRESENTATION);
+    }
+
     public String getColor() {
         return this.color.getValue();
     }
