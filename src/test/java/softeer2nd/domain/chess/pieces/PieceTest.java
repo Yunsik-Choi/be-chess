@@ -7,7 +7,9 @@ import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_REPRESENT
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 @DisplayName("기물 관련 기능")
 public class PieceTest {
@@ -34,6 +36,29 @@ public class PieceTest {
                 () -> assertThat(white.getRepresentation()).isEqualTo(WHITE_REPRESENTATION.getValue()),
                 () -> assertThat(black.getRepresentation()).isEqualTo(BLACK_REPRESENTATION.getValue())
         );
+    }
+
+    @DisplayName("기물 정적 팩토리 메서드 관련 기능")
+    @Nested
+    class createFactoryMethod {
+        private Piece createPieceBy(
+                final PieceColor color,
+                final PieceRepresentation representation
+        ) throws Exception {
+            return ReflectionUtils.getDeclaredConstructor(Piece.class).newInstance(color, representation);
+        }
+
+        @DisplayName("흰색 폰을 생성한다.")
+        @Test
+        void createWhitePawn() throws Exception {
+            assertThat(Piece.createWhitePawn()).isEqualTo(createPieceBy(PieceColor.WHITE, WHITE_REPRESENTATION));
+        }
+
+        @DisplayName("검은색 폰을 생성한다.")
+        @Test
+        void createBlackPawn() throws Exception {
+            assertThat(Piece.createBlackPawn()).isEqualTo(createPieceBy(PieceColor.BLACK, BLACK_REPRESENTATION));
+        }
     }
 
     private void verifyPieceBy(
