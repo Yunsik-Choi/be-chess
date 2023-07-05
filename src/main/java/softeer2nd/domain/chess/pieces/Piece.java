@@ -1,5 +1,7 @@
 package softeer2nd.domain.chess.pieces;
 
+import static softeer2nd.domain.chess.pieces.PieceRepresentation.*;
+
 import java.util.Objects;
 
 public class Piece {
@@ -12,11 +14,19 @@ public class Piece {
     }
 
     public static Piece createWhitePawn() {
-        return new Piece(PieceColor.WHITE, PieceRepresentation.WHITE_REPRESENTATION);
+        return new Piece(PieceColor.WHITE, WHITE_REPRESENTATION);
     }
 
     public static Piece createBlackPawn() {
-        return new Piece(PieceColor.BLACK, PieceRepresentation.BLACK_REPRESENTATION);
+        return new Piece(PieceColor.BLACK, BLACK_REPRESENTATION);
+    }
+
+    public static Piece createWhiteKnight() {
+        return new Piece(PieceColor.WHITE, WHITE_KNIGHT_REPRESENTATION);
+    }
+
+    public static Piece createBlackKnight() {
+        return new Piece(PieceColor.BLACK, BLACK_KNIGHT_REPRESENTATION);
     }
 
     public String getColor() {
