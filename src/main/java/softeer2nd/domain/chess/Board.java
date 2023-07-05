@@ -19,6 +19,8 @@ public class Board {
     private final List<Piece> pieces = new ArrayList<>();
 
     public void initialize() {
+        pieces.clear();
+
         initializePiece(Piece.WHITE_COLOR, PieceRepresentation.WHITE_REPRESENTATION, WHITE_Piece_Y);
         initializePiece(Piece.BLACK_COLOR, PieceRepresentation.BLACK_REPRESENTATION, BLACK_Piece_Y);
     }
