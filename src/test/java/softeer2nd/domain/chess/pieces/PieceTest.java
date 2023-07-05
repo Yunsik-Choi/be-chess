@@ -70,13 +70,29 @@ public class PieceTest {
         @DisplayName("흰색 나이트을 생성한다.")
         @Test
         void createWhiteKnight() throws Exception {
-            assertThat(Piece.createWhiteKnight()).isEqualTo(createPieceBy(PieceColor.WHITE, WHITE_KNIGHT_REPRESENTATION));
+            assertThat(Piece.createWhiteKnight())
+                    .isEqualTo(createPieceBy(PieceColor.WHITE, WHITE_KNIGHT_REPRESENTATION));
         }
 
         @DisplayName("검은색 나이트을 생성한다.")
         @Test
         void createBlackKnight() throws Exception {
-            assertThat(Piece.createBlackKnight()).isEqualTo(createPieceBy(PieceColor.BLACK, BLACK_KNIGHT_REPRESENTATION));
+            assertThat(Piece.createBlackKnight())
+                    .isEqualTo(createPieceBy(PieceColor.BLACK, BLACK_KNIGHT_REPRESENTATION));
+        }
+
+        @DisplayName("흰색 룩을 생성한다.")
+        @Test
+        void createWhiteRook() throws Exception {
+            assertThat(Piece.createWhiteRook())
+                    .isEqualTo(createPieceBy(PieceColor.WHITE, PieceRepresentation.WHITE_ROOK_REPRESENTATION));
+        }
+
+        @DisplayName("검은색 룩을 생성한다.")
+        @Test
+        void createBlackRook() throws Exception {
+            assertThat(Piece.createBlackRook())
+                    .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_ROOK_REPRESENTATION));
         }
     }
 
