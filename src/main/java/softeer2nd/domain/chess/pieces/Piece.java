@@ -53,6 +53,14 @@ public class Piece {
         return new Piece(PieceColor.BLACK, BLACK_QUEEN_REPRESENTATION);
     }
 
+    public static Piece createWhiteKing() {
+        return new Piece(PieceColor.WHITE, WHITE_KING_REPRESENTATION);
+    }
+
+    public static Piece createBlackKing() {
+        return new Piece(PieceColor.BLACK, BLACK_KING_REPRESENTATION);
+    }
+
     public String getColor() {
         return this.color.getValue();
     }
