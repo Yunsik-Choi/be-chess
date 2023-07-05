@@ -58,10 +58,6 @@ public class Board {
                 .collect(Collectors.joining());
     }
 
-    public List<Piece> getPieces() {
-        return pieces;
-    }
-
     public String show() {
         List<List<String>> result = initializeBoardRepresentation();
 
