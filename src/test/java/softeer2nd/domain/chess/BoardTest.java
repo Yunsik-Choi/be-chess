@@ -1,6 +1,7 @@
 package softeer2nd.domain.chess;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static softeer2nd.common.util.StringUtils.appendNewLine;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,20 +16,19 @@ public class BoardTest {
         this.board = new Board();
     }
 
-    @DisplayName("체스판을 출력한다.")
     @Test
-    void show() {
+    public void create() {
         board.initialize();
+        assertEquals(32, board.pieceCount());
 
-        assertThat(board.show()).isEqualTo(
-                "........\n"
-                        + "PPPPPPPP\n"
-                        + "........\n"
-                        + "........\n"
-                        + "........\n"
-                        + "........\n"
-                        + "pppppppp\n"
-                        + "........\n"
-        );
+        String blankRank = appendNewLine("........");
+
+        assertEquals(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"),
+                board.show());
     }
 }
