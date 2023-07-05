@@ -122,6 +122,20 @@ public class PieceTest {
             assertThat(Piece.createBlackQueen())
                     .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_QUEEN_REPRESENTATION));
         }
+
+        @DisplayName("흰색 킹을 생성한다.")
+        @Test
+        void createWhiteKing() throws Exception {
+            assertThat(Piece.createWhiteKing())
+                    .isEqualTo(createPieceBy(PieceColor.WHITE, PieceRepresentation.WHITE_KING_REPRESENTATION));
+        }
+
+        @DisplayName("검은색 킹을 생성한다.")
+        @Test
+        void createBlackKing() throws Exception {
+            assertThat(Piece.createBlackKing())
+                    .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_KING_REPRESENTATION));
+        }
     }
 
     private void verifyPieceBy(
