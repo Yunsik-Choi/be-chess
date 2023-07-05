@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static softeer2nd.domain.chess.pieces.PieceRepresentation.BLACK_REPRESENTATION;
+import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_REPRESENTATION;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,8 +22,8 @@ public class BoardTest {
     @BeforeEach
     void setUp() {
         this.board = new Board();
-        this.white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION, new Point(0, 0));
-        this.black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION, new Point(0, 1));
+        this.white = new Piece(Piece.WHITE_COLOR, WHITE_REPRESENTATION, new Point(0, 0));
+        this.black = new Piece(Piece.BLACK_COLOR, BLACK_REPRESENTATION, new Point(0, 1));
     }
 
     @DisplayName("체스 판을 생성한다.")

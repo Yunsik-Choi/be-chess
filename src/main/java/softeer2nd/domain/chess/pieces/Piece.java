@@ -5,19 +5,17 @@ import java.util.Objects;
 public class Piece {
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
-    public static final String WHITE_REPRESENTATION = "p";
-    public static final String BLACK_REPRESENTATION = "P";
 
     private final String color;
-    private final String representation;
+    private final PieceRepresentation representation;
 
     private Point point;
 
-    public Piece(final Point point) {
-        this(WHITE_COLOR, WHITE_REPRESENTATION, point);
+    public Piece(final PieceRepresentation representation, final Point point) {
+        this(WHITE_COLOR, representation, point);
     }
 
-    public Piece(final String color, final String representation, final Point point) {
+    public Piece(final String color, final PieceRepresentation representation, final Point point) {
         this.color = color;
         this.representation = representation;
         this.point = point;
@@ -28,7 +26,7 @@ public class Piece {
     }
 
     public String getRepresentation() {
-        return this.representation;
+        return this.representation.getValue();
     }
 
     public Point getPoint() {

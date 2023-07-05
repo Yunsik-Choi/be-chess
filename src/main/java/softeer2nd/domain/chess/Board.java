@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
 import softeer2nd.domain.chess.pieces.Piece;
+import softeer2nd.domain.chess.pieces.PieceRepresentation;
 import softeer2nd.domain.chess.pieces.Point;
 
 public class Board {
@@ -18,11 +19,11 @@ public class Board {
     private final List<Piece> pieces = new ArrayList<>();
 
     public void initialize() {
-        initializePiece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION, WHITE_Piece_Y);
-        initializePiece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION, BLACK_Piece_Y);
+        initializePiece(Piece.WHITE_COLOR, PieceRepresentation.WHITE_REPRESENTATION, WHITE_Piece_Y);
+        initializePiece(Piece.BLACK_COLOR, PieceRepresentation.BLACK_REPRESENTATION, BLACK_Piece_Y);
     }
 
-    private void initializePiece(final String color, final String representation, final int y) {
+    private void initializePiece(final String color, final PieceRepresentation representation, final int y) {
         IntStream.range(0, WIDTH_SIZE)
                 .forEach(x -> pieces.add(new Piece(color, representation, new Point(x, y))));
     }
@@ -43,17 +44,17 @@ public class Board {
     }
 
     public String getWhitePiecesResult() {
-        return getPiecesResultOwnedBy(Piece.WHITE_REPRESENTATION);
+        return getPiecesResultOwnedBy(PieceRepresentation.WHITE_REPRESENTATION);
     }
 
     public String getBlackPiecesResult() {
-        return getPiecesResultOwnedBy(Piece.BLACK_REPRESENTATION);
+        return getPiecesResultOwnedBy(PieceRepresentation.BLACK_REPRESENTATION);
     }
 
-    private String getPiecesResultOwnedBy(final String ownedRepresentation) {
+    private String getPiecesResultOwnedBy(final PieceRepresentation ownedRepresentation) {
         return pieces.stream()
                 .map(Piece::getRepresentation)
-                .filter(representation -> representation.equals(ownedRepresentation))
+                .filter(representation -> representation.equals(ownedRepresentation.getValue()))
                 .collect(Collectors.joining());
     }
 
