@@ -29,6 +29,14 @@ public class Piece {
         return new Piece(PieceColor.BLACK, BLACK_KNIGHT_REPRESENTATION);
     }
 
+    public static Piece createWhiteRook() {
+        return new Piece(PieceColor.WHITE, WHITE_ROOK_REPRESENTATION);
+    }
+
+    public static Piece createBlackRook() {
+        return new Piece(PieceColor.BLACK, BLACK_ROOK_REPRESENTATION);
+    }
+
     public String getColor() {
         return this.color.getValue();
     }
