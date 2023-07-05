@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static softeer2nd.domain.chess.pieces.PieceRepresentation.BLACK_REPRESENTATION;
 import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_REPRESENTATION;
 
+import java.lang.reflect.Constructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -18,8 +19,8 @@ public class PieceTest {
 
     @BeforeEach
     void setUp() {
-        this.white = new Piece(PieceColor.WHITE, WHITE_REPRESENTATION);
-        this.black = new Piece(PieceColor.BLACK, BLACK_REPRESENTATION);
+        this.white = Piece.createWhitePawn();
+        this.black = Piece.createBlackPawn();
     }
 
     @DisplayName("생성자로 전달된 색상인 white 또는 black 으로 기물이 생성되어야 한다")
@@ -45,7 +46,11 @@ public class PieceTest {
                 final PieceColor color,
                 final PieceRepresentation representation
         ) throws Exception {
-            return ReflectionUtils.getDeclaredConstructor(Piece.class).newInstance(color, representation);
+            Constructor<Piece> declaredConstructor = ReflectionUtils.getDeclaredConstructor(Piece.class);
+            declaredConstructor.setAccessible(true);
+            Piece piece = declaredConstructor.newInstance(color, representation);
+            declaredConstructor.setAccessible(false);
+            return piece;
         }
 
         @DisplayName("흰색 폰을 생성한다.")

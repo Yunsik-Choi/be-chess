@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.PieceColor;
-import softeer2nd.domain.chess.pieces.PieceRepresentation;
 
 @DisplayName("체스판 행 관련 기능")
 class LineTest {
@@ -30,7 +28,7 @@ class LineTest {
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7})
     void set(int index) {
         Line line = new Line();
-        Piece piece = new Piece(PieceColor.WHITE, PieceRepresentation.BLACK_REPRESENTATION);
+        Piece piece = Piece.createBlackPawn();
 
         line.set(index, piece);
 
@@ -41,7 +39,7 @@ class LineTest {
     @Test
     void setIndexOutOfSize() {
         Line line = new Line();
-        Piece piece = new Piece(PieceColor.WHITE, PieceRepresentation.BLACK_REPRESENTATION);
+        Piece piece = Piece.createWhitePawn();
 
         Assertions.assertAll(
                 () -> assertThatThrownBy(() -> line.set(-1, piece))

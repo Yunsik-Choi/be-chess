@@ -6,7 +6,7 @@ public class Piece {
     private final PieceColor color;
     private final PieceRepresentation representation;
 
-    public Piece(final PieceColor color, final PieceRepresentation representation) {
+    private Piece(final PieceColor color, final PieceRepresentation representation) {
         this.color = color;
         this.representation = representation;
     }

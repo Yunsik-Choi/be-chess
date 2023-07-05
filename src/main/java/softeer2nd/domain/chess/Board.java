@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.PieceColor;
-import softeer2nd.domain.chess.pieces.PieceRepresentation;
 
 public class Board {
     public static final int HEIGHT_SIZE = 8;
@@ -21,17 +19,16 @@ public class Board {
     public void initialize() {
         lines.clear();
         IntStream.range(0, HEIGHT_SIZE).forEach(y -> lines.add(new Line()));
-        initializePiece(lines.get(WHITE_PAWN_LINE_Y), PieceColor.WHITE, PieceRepresentation.WHITE_REPRESENTATION);
-        initializePiece(lines.get(BLACK_PAWN_LINE_Y), PieceColor.BLACK, PieceRepresentation.BLACK_REPRESENTATION);
+        initializePiece(lines.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
+        initializePiece(lines.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
     }
 
     private void initializePiece(
             final Line line,
-            final PieceColor color,
-            final PieceRepresentation representation
+            final Piece piece
     ) {
         IntStream.range(0, Line.WIDTH)
-                .forEach(x -> line.set(x, new Piece(color, representation)));
+                .forEach(x -> line.set(x, piece));
     }
 
     public String show() {
