@@ -37,6 +37,14 @@ public class Piece {
         return new Piece(PieceColor.BLACK, BLACK_ROOK_REPRESENTATION);
     }
 
+    public static Piece createWhiteBishop() {
+        return new Piece(PieceColor.WHITE, WHITE_BISHOP_REPRESENTATION);
+    }
+
+    public static Piece createBlackBishop() {
+        return new Piece(PieceColor.BLACK, BLACK_BISHOP_REPRESENTATION);
+    }
+
     public String getColor() {
         return this.color.getValue();
     }
