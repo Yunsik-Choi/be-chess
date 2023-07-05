@@ -69,6 +69,14 @@ public class Piece {
         return this.representation.getValue();
     }
 
+    public boolean isWhite() {
+        return this.color.equals(PieceColor.WHITE);
+    }
+
+    public boolean isBlack() {
+        return this.color.equals(PieceColor.BLACK);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
