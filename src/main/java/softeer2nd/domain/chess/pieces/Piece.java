@@ -2,7 +2,7 @@ package softeer2nd.domain.chess.pieces;
 
 import java.util.Objects;
 
-public class Pawn {
+public class Piece {
     public static final String WHITE_COLOR = "white";
     public static final String BLACK_COLOR = "black";
     public static final String WHITE_REPRESENTATION = "p";
@@ -13,11 +13,11 @@ public class Pawn {
 
     private Point point;
 
-    public Pawn(final Point point) {
+    public Piece(final Point point) {
         this(WHITE_COLOR, WHITE_REPRESENTATION, point);
     }
 
-    public Pawn(final String color, final String representation, final Point point) {
+    public Piece(final String color, final String representation, final Point point) {
         this.color = color;
         this.representation = representation;
         this.point = point;
@@ -43,8 +43,8 @@ public class Pawn {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        final Pawn pawn = (Pawn) o;
-        return Objects.equals(color, pawn.color);
+        final Piece piece = (Piece) o;
+        return Objects.equals(color, piece.color);
     }
 
     @Override

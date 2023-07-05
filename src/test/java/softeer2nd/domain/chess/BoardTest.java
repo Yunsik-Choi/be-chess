@@ -8,62 +8,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.domain.chess.pieces.Pawn;
+import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Point;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {
-
     private Board board;
-    private Pawn white;
-    private Pawn black;
+    private Piece white;
+    private Piece black;
 
     @BeforeEach
     void setUp() {
         this.board = new Board();
-        this.white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION, new Point(0, 0));
-        this.black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION, new Point(0, 1));
+        this.white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION, new Point(0, 0));
+        this.black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION, new Point(0, 1));
     }
 
     @DisplayName("체스 판을 생성한다.")
     @Test
     public void create() {
         board.add(white);
-        verifyAddPawn(board, 1, white, 0);
+        verifyAddPiece(board, 1, white, 0);
 
         board.add(black);
-        verifyAddPawn(board, 2, black, 1);
+        verifyAddPiece(board, 2, black, 1);
     }
 
-    @DisplayName("체스 판에 Pawn을 추가한다.")
+    @DisplayName("체스 판에 Piece을 추가한다.")
     @Test
     public void add() {
         board.add(white);
 
-        verifyAddPawn(board, 1, white, 0);
+        verifyAddPiece(board, 1, white, 0);
     }
 
-    @DisplayName("체스 판에서 Pawn을 추가된 순번으로 가져온다.")
+    @DisplayName("체스 판에서 Piece을 추가된 순번으로 가져온다.")
     @Test
-    public void findPawn() {
+    public void findPiece() {
         board.add(white);
         board.add(black);
 
         assertAll(
-                () -> assertThat(board.findPawn(0)).isEqualTo(white),
-                () -> assertThat(board.findPawn(1)).isEqualTo(black)
+                () -> assertThat(board.findPiece(0)).isEqualTo(white),
+                () -> assertThat(board.findPiece(1)).isEqualTo(black)
         );
     }
 
     @DisplayName("체스판의 기물 수보다 큰 순번으로 가져올 경우 예외 처리한다.")
     @Test
-    void findPawnIndexOutOfBoundsException() {
+    void findPieceIndexOutOfBoundsException() {
         board.add(white);
 
-        assertThatThrownBy(() -> board.findPawn(1)).isInstanceOf(IndexOutOfBoundsException.class);
+        assertThatThrownBy(() -> board.findPiece(1)).isInstanceOf(IndexOutOfBoundsException.class);
     }
 
-    @DisplayName("체스 판에 추가된 Pawn 의 개수를 반환한다.")
+    @DisplayName("체스 판에 추가된 Piece 의 개수를 반환한다.")
     @Test
     void size() {
         assertThat(board.size()).isZero();
@@ -83,31 +82,31 @@ public class BoardTest {
         board.initialize();
 
         assertAll(
-                () -> assertEquals("pppppppp", board.getWhitePawnsResult()),
-                () -> assertEquals("PPPPPPPP", board.getBlackPawnsResult())
+                () -> assertEquals("pppppppp", board.getWhitePiecesResult()),
+                () -> assertEquals("PPPPPPPP", board.getBlackPiecesResult())
         );
     }
 
-    @DisplayName("흰색 Pawn의 결과를 출력한다.")
+    @DisplayName("흰색 Piece의 결과를 출력한다.")
     @Test
-    void getWhitePawnResult() {
+    void getWhitePieceResult() {
         board.initialize();
 
-        assertEquals("pppppppp", board.getWhitePawnsResult());
+        assertEquals("pppppppp", board.getWhitePiecesResult());
     }
 
-    @DisplayName("검은색 Pawn의 결과를 출력한다.")
+    @DisplayName("검은색 Piece의 결과를 출력한다.")
     @Test
-    void getBlackPawnResult() {
+    void getBlackPieceResult() {
         board.initialize();
 
-        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+        assertEquals("PPPPPPPP", board.getBlackPiecesResult());
     }
 
-    private void verifyAddPawn(final Board board, final int boardSize, final Pawn pawn, final int pawnIndex) {
+    private void verifyAddPiece(final Board board, final int boardSize, final Piece piece, final int PieceIndex) {
         assertAll(
                 () -> assertThat(boardSize).isEqualTo(board.size()),
-                () -> assertThat(pawn).isEqualTo(board.findPawn(pawnIndex))
+                () -> assertThat(piece).isEqualTo(board.findPiece(PieceIndex))
         );
     }
 
