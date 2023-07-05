@@ -45,6 +45,14 @@ public class Piece {
         return new Piece(PieceColor.BLACK, BLACK_BISHOP_REPRESENTATION);
     }
 
+    public static Piece createWhiteQueen() {
+        return new Piece(PieceColor.WHITE, WHITE_QUEEN_REPRESENTATION);
+    }
+
+    public static Piece createBlackQueen() {
+        return new Piece(PieceColor.BLACK, BLACK_QUEEN_REPRESENTATION);
+    }
+
     public String getColor() {
         return this.color.getValue();
     }
