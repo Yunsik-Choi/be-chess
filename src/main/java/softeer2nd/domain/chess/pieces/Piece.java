@@ -8,12 +8,10 @@ public class Piece {
 
     private final String color;
     private final PieceRepresentation representation;
-    private final Point point;
 
-    public Piece(final String color, final PieceRepresentation representation, final Point point) {
+    public Piece(final String color, final PieceRepresentation representation) {
         this.color = color;
         this.representation = representation;
-        this.point = point;
     }
 
     public String getColor() {
@@ -22,10 +20,6 @@ public class Piece {
 
     public String getRepresentation() {
         return this.representation.getValue();
-    }
-
-    public Point getPoint() {
-        return this.point;
     }
 
     @Override
@@ -37,11 +31,11 @@ public class Piece {
             return false;
         }
         final Piece piece = (Piece) o;
-        return Objects.equals(color, piece.color);
+        return Objects.equals(color, piece.color) && representation == piece.representation;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(color);
+        return Objects.hash(color, representation);
     }
 }

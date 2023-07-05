@@ -18,15 +18,15 @@ public class PieceTest {
 
     @BeforeEach
     void setUp() {
-        this.white = new Piece(WHITE_COLOR, WHITE_REPRESENTATION, new Point(0, 0));
-        this.black = new Piece(BLACK_COLOR, BLACK_REPRESENTATION, new Point(0, 1));
+        this.white = new Piece(WHITE_COLOR, WHITE_REPRESENTATION);
+        this.black = new Piece(BLACK_COLOR, BLACK_REPRESENTATION);
     }
 
     @DisplayName("생성자로 전달된 색상인 white 또는 black 으로 기물이 생성되어야 한다")
     @Test
     public void create() {
-        verifyPieceBy(white, WHITE_COLOR, WHITE_REPRESENTATION.getValue(), 0, 0);
-        verifyPieceBy(black, BLACK_COLOR, BLACK_REPRESENTATION.getValue(), 0, 1);
+        verifyPieceBy(white, WHITE_COLOR, WHITE_REPRESENTATION.getValue());
+        verifyPieceBy(black, BLACK_COLOR, BLACK_REPRESENTATION.getValue());
     }
 
     @DisplayName("기물의 출력 문자열을 반환한다.")
@@ -41,15 +41,11 @@ public class PieceTest {
     private void verifyPieceBy(
             final Piece piece,
             final String color,
-            final String representation,
-            final int x,
-            final int y
+            final String representation
     ) {
         assertAll(
                 () -> assertThat(piece.getColor()).isEqualTo(color),
-                () -> assertThat(piece.getRepresentation()).isEqualTo(representation),
-                () -> assertThat(piece.getPoint().getX()).isEqualTo(x),
-                () -> assertThat(piece.getPoint().getY()).isEqualTo(y)
+                () -> assertThat(piece.getRepresentation()).isEqualTo(representation)
         );
     }
 }

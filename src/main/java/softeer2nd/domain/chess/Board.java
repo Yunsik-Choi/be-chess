@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.PieceRepresentation;
-import softeer2nd.domain.chess.pieces.Point;
 
 public class Board {
     public static final int WIDTH_SIZE = 8;
@@ -21,13 +20,13 @@ public class Board {
     public void initialize() {
         pieces.clear();
 
-        initializePiece(Piece.WHITE_COLOR, PieceRepresentation.WHITE_REPRESENTATION, WHITE_Piece_Y);
-        initializePiece(Piece.BLACK_COLOR, PieceRepresentation.BLACK_REPRESENTATION, BLACK_Piece_Y);
+        initializePiece(Piece.WHITE_COLOR, PieceRepresentation.WHITE_REPRESENTATION);
+        initializePiece(Piece.BLACK_COLOR, PieceRepresentation.BLACK_REPRESENTATION);
     }
 
-    private void initializePiece(final String color, final PieceRepresentation representation, final int y) {
+    private void initializePiece(final String color, final PieceRepresentation representation) {
         IntStream.range(0, WIDTH_SIZE)
-                .forEach(x -> pieces.add(new Piece(color, representation, new Point(x, y))));
+                .forEach(x -> pieces.add(new Piece(color, representation)));
     }
 
     public void add(final Piece piece) {
@@ -63,14 +62,7 @@ public class Board {
     public String show() {
         List<List<String>> result = initializeBoardRepresentation();
 
-        this.pieces.forEach(piece -> setRepresentation(result, piece));
-
         return convertBoardRepresentation(result);
-    }
-
-    private void setRepresentation(final List<List<String>> result, final Piece piece) {
-        result.get(piece.getPoint().getY())
-                .set(piece.getPoint().getX(), piece.getRepresentation());
     }
 
     private String convertBoardRepresentation(final List<List<String>> result) {
