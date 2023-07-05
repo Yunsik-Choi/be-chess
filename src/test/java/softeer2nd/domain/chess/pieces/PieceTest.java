@@ -8,6 +8,7 @@ import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_KNIGHT_RE
 import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_REPRESENTATION;
 
 import java.lang.reflect.Constructor;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -136,6 +137,18 @@ public class PieceTest {
             assertThat(Piece.createBlackKing())
                     .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_KING_REPRESENTATION));
         }
+    }
+
+    @DisplayName("백색 기물이면 true를 반환한다.")
+    @Test
+    void isWhite() {
+        Assertions.assertThat(Piece.createWhitePawn().isWhite()).isTrue();
+    }
+
+    @DisplayName("흑색 기물이면 true를 반환한다.")
+    @Test
+    void isBlack() {
+        Assertions.assertThat(Piece.createBlackPawn().isBlack()).isTrue();
     }
 
     private void verifyPieceBy(
