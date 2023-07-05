@@ -2,7 +2,9 @@ package softeer2nd.domain.chess.pieces;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static softeer2nd.domain.chess.pieces.PieceRepresentation.BLACK_KNIGHT_REPRESENTATION;
 import static softeer2nd.domain.chess.pieces.PieceRepresentation.BLACK_REPRESENTATION;
+import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_KNIGHT_REPRESENTATION;
 import static softeer2nd.domain.chess.pieces.PieceRepresentation.WHITE_REPRESENTATION;
 
 import java.lang.reflect.Constructor;
@@ -63,6 +65,18 @@ public class PieceTest {
         @Test
         void createBlackPawn() throws Exception {
             assertThat(Piece.createBlackPawn()).isEqualTo(createPieceBy(PieceColor.BLACK, BLACK_REPRESENTATION));
+        }
+
+        @DisplayName("흰색 나이트을 생성한다.")
+        @Test
+        void createWhiteKnight() throws Exception {
+            assertThat(Piece.createWhiteKnight()).isEqualTo(createPieceBy(PieceColor.WHITE, WHITE_KNIGHT_REPRESENTATION));
+        }
+
+        @DisplayName("검은색 나이트을 생성한다.")
+        @Test
+        void createBlackKnight() throws Exception {
+            assertThat(Piece.createBlackKnight()).isEqualTo(createPieceBy(PieceColor.BLACK, BLACK_KNIGHT_REPRESENTATION));
         }
     }
 
