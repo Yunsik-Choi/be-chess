@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
 import softeer2nd.domain.chess.pieces.Piece;
+import softeer2nd.domain.chess.pieces.PieceColor;
 import softeer2nd.domain.chess.pieces.PieceRepresentation;
 
 public class Board {
@@ -20,11 +21,11 @@ public class Board {
     public void initialize() {
         pieces.clear();
 
-        initializePiece(Piece.WHITE_COLOR, PieceRepresentation.WHITE_REPRESENTATION);
-        initializePiece(Piece.BLACK_COLOR, PieceRepresentation.BLACK_REPRESENTATION);
+        initializePiece(PieceColor.WHITE, PieceRepresentation.WHITE_REPRESENTATION);
+        initializePiece(PieceColor.BLACK, PieceRepresentation.BLACK_REPRESENTATION);
     }
 
-    private void initializePiece(final String color, final PieceRepresentation representation) {
+    private void initializePiece(final PieceColor color, final PieceRepresentation representation) {
         IntStream.range(0, WIDTH_SIZE)
                 .forEach(x -> pieces.add(new Piece(color, representation)));
     }

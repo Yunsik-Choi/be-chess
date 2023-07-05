@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.domain.chess.pieces.Piece;
+import softeer2nd.domain.chess.pieces.PieceColor;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {
@@ -21,8 +22,8 @@ public class BoardTest {
     @BeforeEach
     void setUp() {
         this.board = new Board();
-        this.white = new Piece(Piece.WHITE_COLOR, WHITE_REPRESENTATION);
-        this.black = new Piece(Piece.BLACK_COLOR, BLACK_REPRESENTATION);
+        this.white = new Piece(PieceColor.WHITE, WHITE_REPRESENTATION);
+        this.black = new Piece(PieceColor.BLACK, BLACK_REPRESENTATION);
     }
 
     @DisplayName("체스 판을 생성한다.")

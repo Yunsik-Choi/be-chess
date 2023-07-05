@@ -3,19 +3,16 @@ package softeer2nd.domain.chess.pieces;
 import java.util.Objects;
 
 public class Piece {
-    public static final String WHITE_COLOR = "white";
-    public static final String BLACK_COLOR = "black";
-
-    private final String color;
+    private final PieceColor color;
     private final PieceRepresentation representation;
 
-    public Piece(final String color, final PieceRepresentation representation) {
+    public Piece(final PieceColor color, final PieceRepresentation representation) {
         this.color = color;
         this.representation = representation;
     }
 
     public String getColor() {
-        return this.color;
+        return this.color.getValue();
     }
 
     public String getRepresentation() {
