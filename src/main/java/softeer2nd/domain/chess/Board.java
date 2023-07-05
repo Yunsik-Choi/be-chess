@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
-import softeer2nd.domain.chess.pieces.Line;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.PieceColor;
 import softeer2nd.domain.chess.pieces.PieceRepresentation;

@@ -1,8 +1,9 @@
-package softeer2nd.domain.chess.pieces;
+package softeer2nd.domain.chess;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import softeer2nd.domain.chess.pieces.Piece;
 
 public class Line {
     public static final int WIDTH = 8;

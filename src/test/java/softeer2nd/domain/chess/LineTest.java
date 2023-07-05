@@ -1,13 +1,16 @@
-package softeer2nd.domain.chess.pieces;
+package softeer2nd.domain.chess;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import softeer2nd.domain.chess.pieces.Piece;
+import softeer2nd.domain.chess.pieces.PieceColor;
+import softeer2nd.domain.chess.pieces.PieceRepresentation;
 
 @DisplayName("체스판 행 관련 기능")
 class LineTest {
