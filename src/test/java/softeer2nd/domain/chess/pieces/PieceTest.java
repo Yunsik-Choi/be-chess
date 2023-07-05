@@ -94,6 +94,20 @@ public class PieceTest {
             assertThat(Piece.createBlackRook())
                     .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_ROOK_REPRESENTATION));
         }
+
+        @DisplayName("흰색 비숍을 생성한다.")
+        @Test
+        void createWhiteBishop() throws Exception {
+            assertThat(Piece.createWhiteBishop())
+                    .isEqualTo(createPieceBy(PieceColor.WHITE, PieceRepresentation.WHITE_BISHOP_REPRESENTATION));
+        }
+
+        @DisplayName("검은색 비숍을 생성한다.")
+        @Test
+        void createBlackBishop() throws Exception {
+            assertThat(Piece.createBlackBishop())
+                    .isEqualTo(createPieceBy(PieceColor.BLACK, PieceRepresentation.BLACK_BISHOP_REPRESENTATION));
+        }
     }
 
     private void verifyPieceBy(
