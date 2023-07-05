@@ -10,10 +10,6 @@ public class Piece {
     private final PieceRepresentation representation;
     private final Point point;
 
-    public Piece(final PieceRepresentation representation, final Point point) {
-        this(WHITE_COLOR, representation, point);
-    }
-
     public Piece(final String color, final PieceRepresentation representation, final Point point) {
         this.color = color;
         this.representation = representation;

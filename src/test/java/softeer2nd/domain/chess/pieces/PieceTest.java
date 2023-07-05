@@ -29,14 +29,6 @@ public class PieceTest {
         verifyPieceBy(black, BLACK_COLOR, BLACK_REPRESENTATION.getValue(), 0, 1);
     }
 
-    @DisplayName("기물을 기본생성자로 생성한다.")
-    @Test
-    public void create_기본생성자() {
-        Piece piece = new Piece(PieceRepresentation.WHITE_REPRESENTATION, new Point(0, 0));
-
-        verifyPieceBy(piece, WHITE_COLOR, WHITE_REPRESENTATION.getValue(), 0, 0);
-    }
-
     @DisplayName("기물의 출력 문자열을 반환한다.")
     @Test
     void getRepresentation() {
