@@ -31,14 +31,20 @@ public class Piece {
         public String getBlackRepresentation() {
             return representation.toUpperCase();
         }
+
     }
 
     private final Color color;
+
     private final Type type;
 
     private Piece(final Color color, final Type type) {
         this.color = color;
         this.type = type;
+    }
+
+    public static Piece createNoPiece() {
+        return new Piece(Color.NOCOLOR, NO_PIECE);
     }
 
     public static Piece createWhitePawn() {
