@@ -14,14 +14,14 @@ public class Board {
     private static final int BLACK_PAWN_LINE_Y = 1;
     private static final int BLACK_GENERAL_LINE_Y = 0;
 
-    private final List<Line> lines = new ArrayList<>();
+    private final List<Rank> ranks = new ArrayList<>();
 
     public void initialize() {
-        lines.clear();
-        IntStream.range(0, HEIGHT_SIZE).forEach(y -> lines.add(Line.createNoPiece()));
+        ranks.clear();
+        IntStream.range(0, HEIGHT_SIZE).forEach(y -> ranks.add(Rank.createNoPiece()));
 
         setPiece(
-                lines.get(BLACK_GENERAL_LINE_Y),
+                ranks.get(BLACK_GENERAL_LINE_Y),
                 Piece.createBlackRook(),
                 Piece.createBlackKnight(),
                 Piece.createBlackBishop(),
@@ -33,7 +33,7 @@ public class Board {
         );
 
         setPiece(
-                lines.get(WHITE_GENERAL_LINE_Y),
+                ranks.get(WHITE_GENERAL_LINE_Y),
                 Piece.createWhiteRook(),
                 Piece.createWhiteKnight(),
                 Piece.createWhiteBishop(),
@@ -44,21 +44,21 @@ public class Board {
                 Piece.createWhiteRook()
         );
 
-        setPiece(lines.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
-        setPiece(lines.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
+        setPiece(ranks.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
+        setPiece(ranks.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
     }
 
-    private void setPiece(final Line line, final Piece... pieces) {
+    private void setPiece(final Rank rank, final Piece... pieces) {
         IntStream.range(0, pieces.length)
-                .forEach(i -> line.set(i, pieces[i]));
+                .forEach(i -> rank.set(i, pieces[i]));
     }
 
     private void setPiece(
-            final Line line,
+            final Rank rank,
             final Piece piece
     ) {
-        IntStream.range(0, Line.WIDTH)
-                .forEach(x -> line.set(x, piece));
+        IntStream.range(0, Rank.WIDTH)
+                .forEach(x -> rank.set(x, piece));
     }
 
     public String show() {
@@ -77,10 +77,10 @@ public class Board {
     }
 
     private void setLineRepresentation(final List<List<String>> result, final int y) {
-        Line line = lines.get(y);
+        Rank rank = ranks.get(y);
 
-        IntStream.range(0, Line.WIDTH)
-                .forEach(x -> result.get(y).add(x, getPieceRepresentation(line.getPieces().get(x))));
+        IntStream.range(0, Rank.WIDTH)
+                .forEach(x -> result.get(y).add(x, getPieceRepresentation(rank.getPieces().get(x))));
     }
 
     private String getPieceRepresentation(final Piece piece) {
@@ -95,8 +95,8 @@ public class Board {
     }
 
     public int pieceCount() {
-        return this.lines.stream()
-                .mapToInt(line -> Long.valueOf(line.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
+        return this.ranks.stream()
+                .mapToInt(rank -> Long.valueOf(rank.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
                 .sum();
     }
 }

@@ -5,20 +5,20 @@ import java.util.List;
 import java.util.stream.IntStream;
 import softeer2nd.domain.chess.pieces.Piece;
 
-public class Line {
+public class Rank {
     public static final int WIDTH = 8;
 
     private final List<Piece> pieces = new ArrayList<>();
 
-    public Line() {
+    public Rank() {
         IntStream.range(0, WIDTH)
                 .forEach(i -> pieces.add(null));
     }
 
-    public static Line createNoPiece() {
-        Line line = new Line();
-        IntStream.range(0, WIDTH).forEach(i -> line.set(i, Piece.createNoPiece()));
-        return line;
+    public static Rank createNoPiece() {
+        Rank rank = new Rank();
+        IntStream.range(0, WIDTH).forEach(i -> rank.set(i, Piece.createNoPiece()));
+        return rank;
     }
 
     public List<Piece> getPieces() {
