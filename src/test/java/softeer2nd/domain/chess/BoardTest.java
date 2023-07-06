@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Piece.Type;
 
@@ -46,5 +47,16 @@ public class BoardTest {
                 () -> assertEquals(2, board.pieceCount(Color.BLACK, Type.ROOK)),
                 () -> assertEquals(1, board.pieceCount(Color.BLACK, Type.QUEEN))
         );
+    }
+
+    @DisplayName("주어진 위치의 기물을 조회한다.")
+    @Test
+    public void findPiece() {
+        board.initialize();
+
+        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
 }
