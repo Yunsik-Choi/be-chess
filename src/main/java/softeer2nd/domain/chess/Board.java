@@ -1,6 +1,7 @@
 package softeer2nd.domain.chess;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -156,5 +157,17 @@ public class Board {
                 .count();
 
         return Long.valueOf(countOfRankHasPawn).intValue();
+    }
+
+    public List<Piece> sortByPoint(final Color color) {
+        return this.ranks.stream()
+                .flatMap(rank -> rank.getPieces().stream())
+                .filter(piece -> piece.getColor().equals(color))
+                .sorted(sortPieceByPointComparator())
+                .collect(Collectors.toList());
+    }
+
+    private static Comparator<Piece> sortPieceByPointComparator() {
+        return (o1, o2) -> (int) (o2.getType().getPoint() - o1.getType().getPoint());
     }
 }
