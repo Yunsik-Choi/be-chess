@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static softeer2nd.domain.chess.pieces.Piece.Type.BISHOP;
 import static softeer2nd.domain.chess.pieces.Piece.Type.KING;
 import static softeer2nd.domain.chess.pieces.Piece.Type.KNIGHT;
+import static softeer2nd.domain.chess.pieces.Piece.Type.NO_PIECE;
 import static softeer2nd.domain.chess.pieces.Piece.Type.PAWN;
 import static softeer2nd.domain.chess.pieces.Piece.Type.QUEEN;
 import static softeer2nd.domain.chess.pieces.Piece.Type.ROOK;
@@ -140,6 +141,13 @@ public class PieceTest {
         void createBlackKing() throws Exception {
             assertThat(Piece.createBlackKing())
                     .isEqualTo(createPieceBy(Color.BLACK, KING));
+        }
+
+        @DisplayName("빈칸을 생성한다.")
+        @Test
+        void createNoPiece() throws Exception {
+            assertThat(Piece.createNoPiece())
+                    .isEqualTo(createPieceBy(Color.NOCOLOR, NO_PIECE));
         }
     }
 
