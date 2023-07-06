@@ -43,4 +43,8 @@ public class Rank {
                 .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
                 .count()).intValue();
     }
+
+    public Piece getPiece(final int index) {
+        return this.pieces.get(index);
+    }
 }
