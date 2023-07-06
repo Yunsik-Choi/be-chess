@@ -2,7 +2,6 @@ package softeer2nd.domain.chess;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.common.util.StringUtils;
@@ -14,13 +13,12 @@ public class Board {
     private static final int WHITE_GENERAL_LINE_Y = 7;
     private static final int BLACK_PAWN_LINE_Y = 1;
     private static final int BLACK_GENERAL_LINE_Y = 0;
-    private static final String BOARD_EMPTY_REPRESENTATION = ".";
 
     private final List<Line> lines = new ArrayList<>();
 
     public void initialize() {
         lines.clear();
-        IntStream.range(0, HEIGHT_SIZE).forEach(y -> lines.add(new Line()));
+        IntStream.range(0, HEIGHT_SIZE).forEach(y -> lines.add(Line.createNoPiece()));
 
         initializePiece(
                 lines.get(BLACK_GENERAL_LINE_Y),
@@ -53,7 +51,7 @@ public class Board {
     private void initializePiece(final Line line, final Piece... pieces) {
         for (int i = 0; i < Line.WIDTH; i++) {
             if (i > pieces.length) {
-                line.set(i, null);
+                line.set(i, Piece.createNoPiece());
             }
             line.set(i, pieces[i]);
         }
@@ -68,36 +66,28 @@ public class Board {
     }
 
     public String show() {
-        List<List<String>> result = initializeBoardRepresentation();
-
-        setBoardRepresentation(result);
-
-        return boardRepresentationFormatting(result);
+        return boardRepresentationFormatting(boardRepresentation());
     }
 
-    private List<List<String>> initializeBoardRepresentation() {
-        return IntStream.range(0, Board.HEIGHT_SIZE)
-                .mapToObj(y -> IntStream.range(0, Line.WIDTH)
-                        .mapToObj(x -> BOARD_EMPTY_REPRESENTATION).collect(Collectors.toList())
-                ).collect(Collectors.toUnmodifiableList());
-    }
+    private List<List<String>> boardRepresentation() {
+        List<List<String>> result = IntStream.range(0, HEIGHT_SIZE)
+                .mapToObj(y -> new ArrayList<String>())
+                .collect(Collectors.toList());
 
-    private void setBoardRepresentation(final List<List<String>> result) {
         IntStream.range(0, HEIGHT_SIZE)
                 .forEach(y -> setLineRepresentation(result, y));
+
+        return result;
     }
 
     private void setLineRepresentation(final List<List<String>> result, final int y) {
         Line line = lines.get(y);
 
         IntStream.range(0, Line.WIDTH)
-                .forEach(x -> result.get(y).set(x, getPieceRepresentation(line.getPieces().get(x))));
+                .forEach(x -> result.get(y).add(x, getPieceRepresentation(line.getPieces().get(x))));
     }
 
     private String getPieceRepresentation(final Piece piece) {
-        if (piece == null) {
-            return BOARD_EMPTY_REPRESENTATION;
-        }
         return piece.getRepresentationPerPiece();
     }
 
@@ -110,7 +100,7 @@ public class Board {
 
     public int pieceCount() {
         return this.lines.stream()
-                .mapToInt(line -> Long.valueOf(line.getPieces().stream().filter(Objects::nonNull).count()).intValue())
+                .mapToInt(line -> Long.valueOf(line.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
                 .sum();
     }
 }
