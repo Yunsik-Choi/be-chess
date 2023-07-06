@@ -172,6 +172,15 @@ public class PieceTest {
         );
     }
 
+    @DisplayName("기물이 NO PIECE이면 true를 반환한다")
+    @Test
+    void isNoPiece() {
+        assertAll(
+                () -> assertThat(Piece.createNoPiece().isNoPiece()).isTrue(),
+                () -> assertThat(Piece.createBlackPawn().isNoPiece()).isFalse()
+        );
+    }
+
     private void verifyPieceBy(
             final Piece piece,
             final Color color,
