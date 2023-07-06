@@ -25,7 +25,7 @@ public class Position {
     }
 
     private int convertMathCode(final String position) {
-        return (Character.getNumericValue(position.charAt(1)) - Board.HEIGHT_SIZE) * -1;
+        return Board.HEIGHT_SIZE - Character.getNumericValue(position.charAt(1));
     }
 
     private void validationPositionOutOfBound(final int xPos, final int yPos) {
