@@ -98,7 +98,7 @@ public class Board {
         if (piece == null) {
             return BOARD_EMPTY_REPRESENTATION;
         }
-        return piece.getRepresentation();
+        return piece.getRepresentationPerPiece();
     }
 
     private String boardRepresentationFormatting(final List<List<String>> result) {
