@@ -20,6 +20,7 @@ public class BoardTest {
         this.board = new Board();
     }
 
+    @DisplayName("체스판을 초기화한다.")
     @Test
     public void create() {
         board.initialize();
