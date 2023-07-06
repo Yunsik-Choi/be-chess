@@ -59,4 +59,17 @@ public class BoardTest {
         assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
         assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
+
+    @DisplayName("빈 체스판을 생성한다.")
+    @Test
+    void initializeEmpty() {
+        board.initializeEmpty();
+
+        String blankRank = appendNewLine("........");
+
+        assertEquals(
+                blankRank + blankRank + blankRank + blankRank + blankRank + blankRank + blankRank + blankRank,
+                board.show()
+        );
+    }
 }
