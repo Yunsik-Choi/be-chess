@@ -55,4 +55,16 @@ class RankTest {
         assertThat(Rank.createNoPiece().getPieces()).hasSize(Rank.WIDTH)
                 .containsOnly(Piece.createNoPiece());
     }
+
+    @DisplayName("행에 번호로 추가된 기물을 가져온다.")
+    @ParameterizedTest(name = "index : {0}")
+    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7})
+    void getPiece(int index) {
+        Rank rank = new Rank();
+        Piece piece = Piece.createBlackPawn();
+
+        rank.set(index, piece);
+
+        assertThat(rank.getPiece(index)).isEqualTo(Piece.createBlackPawn());
+    }
 }
