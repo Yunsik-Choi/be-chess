@@ -2,6 +2,9 @@ package softeer2nd.domain.chess.pieces;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static softeer2nd.domain.chess.pieces.Piece.Type.BISHOP;
 import static softeer2nd.domain.chess.pieces.Piece.Type.KING;
 import static softeer2nd.domain.chess.pieces.Piece.Type.KNIGHT;
@@ -179,6 +182,30 @@ public class PieceTest {
                 () -> assertThat(Piece.createNoPiece().isNoPiece()).isTrue(),
                 () -> assertThat(Piece.createBlackPawn().isNoPiece()).isFalse()
         );
+    }
+
+    @DisplayName("기물을 팩토리 메서드로 생성한다.")
+    @Test
+    public void create_piece() {
+        verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), Type.PAWN);
+        verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), Type.KNIGHT);
+        verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), Type.ROOK);
+        verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), Type.BISHOP);
+        verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), Type.QUEEN);
+        verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), Type.KING);
+
+        Piece blank = Piece.createNoPiece();
+        assertFalse(blank.isWhite());
+        assertFalse(blank.isBlack());
+        assertEquals(Type.NO_PIECE, blank.getType());
+    }
+
+    private void verifyPiece(final Piece whitePiece, final Piece blackPiece, final Type type) {
+        assertTrue(whitePiece.isWhite());
+        assertEquals(type, whitePiece.getType());
+
+        assertTrue(blackPiece.isBlack());
+        assertEquals(type, blackPiece.getType());
     }
 
     private void verifyPieceBy(
