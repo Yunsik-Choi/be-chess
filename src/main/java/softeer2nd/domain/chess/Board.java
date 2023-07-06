@@ -119,4 +119,10 @@ public class Board {
 
         return this.ranks.get(findPiecePosition.getY()).getPiece(findPiecePosition.getX());
     }
+
+    public void move(final String position, final Piece piece) {
+        Position movePosition = new Position(position);
+
+        this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece);
+    }
 }
