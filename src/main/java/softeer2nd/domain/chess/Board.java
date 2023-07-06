@@ -20,7 +20,7 @@ public class Board {
         lines.clear();
         IntStream.range(0, HEIGHT_SIZE).forEach(y -> lines.add(Line.createNoPiece()));
 
-        initializePiece(
+        setPiece(
                 lines.get(BLACK_GENERAL_LINE_Y),
                 Piece.createBlackRook(),
                 Piece.createBlackKnight(),
@@ -32,7 +32,7 @@ public class Board {
                 Piece.createBlackRook()
         );
 
-        initializePiece(
+        setPiece(
                 lines.get(WHITE_GENERAL_LINE_Y),
                 Piece.createWhiteRook(),
                 Piece.createWhiteKnight(),
@@ -44,20 +44,16 @@ public class Board {
                 Piece.createWhiteRook()
         );
 
-        initializePiece(lines.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
-        initializePiece(lines.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
+        setPiece(lines.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
+        setPiece(lines.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
     }
 
-    private void initializePiece(final Line line, final Piece... pieces) {
-        for (int i = 0; i < Line.WIDTH; i++) {
-            if (i > pieces.length) {
-                line.set(i, Piece.createNoPiece());
-            }
-            line.set(i, pieces[i]);
-        }
+    private void setPiece(final Line line, final Piece... pieces) {
+        IntStream.range(0, pieces.length)
+                .forEach(i -> line.set(i, pieces[i]));
     }
 
-    private void initializePiece(
+    private void setPiece(
             final Line line,
             final Piece piece
     ) {
