@@ -32,6 +32,7 @@ public class Piece {
             return representation.toUpperCase();
         }
 
+
     }
 
     private final Color color;
@@ -116,6 +117,10 @@ public class Piece {
 
     public boolean isBlack() {
         return this.color.equals(Color.BLACK);
+    }
+
+    public boolean isNoPiece() {
+        return this.type == NO_PIECE;
     }
 
     @Override
