@@ -19,6 +19,11 @@ public class Board {
 
     private final List<Rank> ranks = new ArrayList<>();
 
+    public void initializeEmpty() {
+        ranks.clear();
+        IntStream.range(0, Board.HEIGHT_SIZE).forEach(y -> ranks.add(y, Rank.createNoPiece()));
+    }
+
     public void initialize() {
         ranks.clear();
         IntStream.range(0, HEIGHT_SIZE).forEach(y -> ranks.add(Rank.createNoPiece()));
