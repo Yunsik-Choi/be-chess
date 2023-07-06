@@ -48,4 +48,11 @@ class LineTest {
                         .isInstanceOf(IndexOutOfBoundsException.class)
         );
     }
+
+    @DisplayName("빈 칸으로 이루어진 라인을 생성한다.")
+    @Test
+    void createNoPiece() {
+        assertThat(Line.createNoPiece().getPieces()).hasSize(Line.WIDTH)
+                .containsOnly(Piece.createNoPiece());
+    }
 }
