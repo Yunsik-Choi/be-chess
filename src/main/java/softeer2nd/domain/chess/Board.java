@@ -102,9 +102,9 @@ public class Board {
                 .sum();
     }
 
-    public int pieceCount(final Color white, final Type pawn) {
+    public int pieceCount(final Color color, final Type type) {
         return this.ranks.stream()
-                .mapToInt(rank -> rank.pieceCount(white, pawn))
+                .mapToInt(rank -> rank.pieceCount(color, type))
                 .sum();
     }
 }
