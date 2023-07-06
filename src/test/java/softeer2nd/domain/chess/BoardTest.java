@@ -1,5 +1,7 @@
 package softeer2nd.domain.chess;
 
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.common.util.StringUtils.appendNewLine;
 
@@ -103,6 +105,37 @@ public class BoardTest {
 
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
+    }
+
+    @DisplayName("기물의 점수가 높은 순으로 정렬한다.")
+    @Test
+    void sortByPoint() {
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.createBlackPawn());
+        addPiece("e6", Piece.createBlackQueen());
+        addPiece("b8", Piece.createBlackKing());
+        addPiece("c8", Piece.createBlackRook());
+
+        addPiece("f2", Piece.createWhitePawn());
+        addPiece("g2", Piece.createWhitePawn());
+        addPiece("e1", Piece.createWhiteRook());
+        addPiece("f1", Piece.createWhiteKing());
+
+        assertAll(
+                () -> assertThat(board.sortByPoint(Color.BLACK)).containsExactly(
+                        Piece.createBlackQueen(),
+                        Piece.createBlackRook(),
+                        Piece.createBlackPawn(),
+                        Piece.createBlackKing()
+                ),
+                () -> assertThat(board.sortByPoint(Color.WHITE)).containsExactly(
+                        Piece.createWhiteRook(),
+                        Piece.createWhitePawn(),
+                        Piece.createWhitePawn(),
+                        Piece.createWhiteKing()
+                )
+        );
     }
 
     private void addPiece(String position, Piece piece) {
