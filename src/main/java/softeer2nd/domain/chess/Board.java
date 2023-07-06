@@ -125,4 +125,36 @@ public class Board {
 
         this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece);
     }
+
+    public double calculatePoint(final Color color) {
+        double totalPoint = this.ranks.stream()
+                .flatMap(rank -> rank.getPieces().stream())
+                .filter(piece -> piece.getColor().equals(color))
+                .mapToDouble(piece -> piece.getType().getPoint())
+                .sum();
+
+        return calculateFileHasPawnOfPoint(totalPoint);
+    }
+
+    private double calculateFileHasPawnOfPoint(double point) {
+        double calculateTotalDuplicatePawnDeduction = IntStream.range(0, Board.HEIGHT_SIZE)
+                .map(this::countFileHasPawn)
+                .filter(Board::isFileHasManyPawn)
+                .mapToDouble(count -> count * Type.DUPLICATE_FILE_PAWN_POINT)
+                .sum();
+
+        return point - calculateTotalDuplicatePawnDeduction;
+    }
+
+    private static boolean isFileHasManyPawn(final int count) {
+        return count > 1;
+    }
+
+    private int countFileHasPawn(int x) {
+        long countOfRankHasPawn = IntStream.range(0, HEIGHT_SIZE)
+                .filter(y -> ranks.get(y).getPieces().get(x).isPawn())
+                .count();
+
+        return Long.valueOf(countOfRankHasPawn).intValue();
+    }
 }
