@@ -15,6 +15,12 @@ public class Line {
                 .forEach(i -> pieces.add(null));
     }
 
+    public static Line createNoPiece() {
+        Line line = new Line();
+        IntStream.range(0, WIDTH).forEach(i -> line.set(i, Piece.createNoPiece()));
+        return line;
+    }
+
     public List<Piece> getPieces() {
         return this.pieces;
     }
