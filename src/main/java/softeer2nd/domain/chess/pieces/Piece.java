@@ -6,22 +6,27 @@ import java.util.Objects;
 
 public class Piece {
     public enum Color {
-        WHITE, BLACK, NOCOLOR
+        WHITE, BLACK, NOCOLOR;
     }
 
     public enum Type {
-        PAWN("p"),
-        KNIGHT("n"),
-        ROOK("r"),
-        BISHOP("b"),
-        QUEEN("q"),
-        KING("k"),
-        NO_PIECE(".");
+        PAWN("p", 1.0),
+        KNIGHT("n", 2.5),
+        ROOK("r", 5.0),
+        BISHOP("b", 3.0),
+        QUEEN("q", 9.0),
+        KING("k", 0.0),
+        NO_PIECE(".", 0.0);
+
+        public static final double DUPLICATE_FILE_PAWN_POINT = 0.5;
 
         private final String representation;
 
-        Type(final String representation) {
+        private final double point;
+
+        Type(final String representation, final double point) {
             this.representation = representation;
+            this.point = point;
         }
 
         public String getWhiteRepresentation() {
@@ -32,6 +37,9 @@ public class Piece {
             return representation.toUpperCase();
         }
 
+        public double getPoint() {
+            return point;
+        }
 
     }
 
@@ -125,6 +133,10 @@ public class Piece {
 
     public boolean isBlack() {
         return this.color.equals(Color.BLACK);
+    }
+
+    public boolean isPawn() {
+        return this.type.equals(PAWN);
     }
 
     public boolean isNoPiece() {
