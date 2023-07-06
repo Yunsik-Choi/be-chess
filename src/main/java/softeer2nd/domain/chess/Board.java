@@ -8,6 +8,7 @@ import softeer2nd.common.util.StringUtils;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Piece.Type;
+import softeer2nd.domain.chess.pieces.Position;
 
 public class Board {
     public static final int HEIGHT_SIZE = 8;
@@ -106,5 +107,11 @@ public class Board {
         return this.ranks.stream()
                 .mapToInt(rank -> rank.pieceCount(color, type))
                 .sum();
+    }
+
+    public Piece findPiece(final String position) {
+        Position findPiecePosition = new Position(position);
+
+        return this.ranks.get(findPiecePosition.getY()).getPiece(findPiecePosition.getX());
     }
 }
