@@ -78,6 +78,12 @@ public class Board {
                 .sum();
     }
 
+    public void move(final String sourcePosition, final String targetPosition) {
+        Piece piece = findPiece(sourcePosition);
+
+        move(targetPosition, piece);
+    }
+
     public Piece findPiece(final String position) {
         Position findPiecePosition = new Position(position);
 
@@ -86,8 +92,10 @@ public class Board {
 
     public void move(final String position, final Piece piece) {
         Position movePosition = new Position(position);
+        Position originPosition = piece.getPosition();
 
-        this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece);
+        this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
+        this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece.move(movePosition));
     }
 
     public double calculatePoint(final Color color) {

@@ -121,12 +121,20 @@ public class Piece {
         return new Piece(Color.BLACK, type, position);
     }
 
+    public Piece move(final Position position) {
+        return new Piece(this.color, this.type, position);
+    }
+
     public Color getColor() {
         return this.color;
     }
 
     public Type getType() {
         return this.type;
+    }
+
+    public Position getPosition() {
+        return this.position;
     }
 
     public String getRepresentationPerPiece() {
