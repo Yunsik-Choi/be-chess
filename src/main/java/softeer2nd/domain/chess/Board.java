@@ -21,52 +21,16 @@ public class Board {
 
     public void initializeEmpty() {
         ranks.clear();
-        IntStream.range(0, Board.HEIGHT_SIZE).forEach(y -> ranks.add(y, Rank.createNoPiece()));
+        IntStream.range(0, Board.HEIGHT_SIZE).forEach(y -> ranks.add(y, Rank.createNoPiece(y)));
     }
 
     public void initialize() {
         ranks.clear();
-        IntStream.range(0, HEIGHT_SIZE).forEach(y -> ranks.add(Rank.createNoPiece()));
-
-        setPiece(
-                ranks.get(BLACK_GENERAL_LINE_Y),
-                Piece.createBlackRook(),
-                Piece.createBlackKnight(),
-                Piece.createBlackBishop(),
-                Piece.createBlackQueen(),
-                Piece.createBlackKing(),
-                Piece.createBlackBishop(),
-                Piece.createBlackKnight(),
-                Piece.createBlackRook()
-        );
-
-        setPiece(
-                ranks.get(WHITE_GENERAL_LINE_Y),
-                Piece.createWhiteRook(),
-                Piece.createWhiteKnight(),
-                Piece.createWhiteBishop(),
-                Piece.createWhiteQueen(),
-                Piece.createWhiteKing(),
-                Piece.createWhiteBishop(),
-                Piece.createWhiteKnight(),
-                Piece.createWhiteRook()
-        );
-
-        setPiece(ranks.get(WHITE_PAWN_LINE_Y), Piece.createWhitePawn());
-        setPiece(ranks.get(BLACK_PAWN_LINE_Y), Piece.createBlackPawn());
-    }
-
-    private void setPiece(final Rank rank, final Piece... pieces) {
-        IntStream.range(0, pieces.length)
-                .forEach(i -> rank.set(i, pieces[i]));
-    }
-
-    private void setPiece(
-            final Rank rank,
-            final Piece piece
-    ) {
-        IntStream.range(0, Rank.WIDTH)
-                .forEach(x -> rank.set(x, piece));
+        IntStream.range(0, HEIGHT_SIZE).forEach(y -> ranks.add(Rank.createNoPiece(y)));
+        ranks.set(BLACK_GENERAL_LINE_Y, Rank.createBlackGeneral(BLACK_GENERAL_LINE_Y));
+        ranks.set(WHITE_GENERAL_LINE_Y, Rank.createWhiteGeneral(WHITE_GENERAL_LINE_Y));
+        ranks.set(BLACK_PAWN_LINE_Y, Rank.createBlackPawn(BLACK_PAWN_LINE_Y));
+        ranks.set(WHITE_PAWN_LINE_Y, Rank.createWhitePawn(WHITE_PAWN_LINE_Y));
     }
 
     public String show() {

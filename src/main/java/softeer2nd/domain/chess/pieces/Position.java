@@ -1,5 +1,6 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.Objects;
 import softeer2nd.domain.chess.Board;
 import softeer2nd.domain.chess.Rank;
 
@@ -18,6 +19,12 @@ public class Position {
         validationPositionOutOfBound(xPos, yPos);
         this.x = xPos;
         this.y = yPos;
+    }
+
+    public Position(final int x, final int y) {
+        validationPositionOutOfBound(x, y);
+        this.x = x;
+        this.y = y;
     }
 
     private int lowerCaseToInt(final String position) {
@@ -40,5 +47,22 @@ public class Position {
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
     }
 }

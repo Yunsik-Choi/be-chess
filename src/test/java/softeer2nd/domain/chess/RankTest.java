@@ -4,14 +4,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import softeer2nd.domain.chess.pieces.Piece;
+import softeer2nd.domain.chess.pieces.Position;
 
 @DisplayName("체스판 행 관련 기능")
 class RankTest {
+    private Position a1;
+
+    @BeforeEach
+    void setUp() {
+        a1 = new Position("a1");
+    }
+
     @DisplayName("행을 생성한다.")
     @Test
     void create() {
@@ -28,7 +37,7 @@ class RankTest {
     @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7})
     void set(int index) {
         Rank rank = new Rank();
-        Piece piece = Piece.createBlackPawn();
+        Piece piece = Piece.createBlackPawn(a1);
 
         rank.set(index, piece);
 
@@ -39,7 +48,7 @@ class RankTest {
     @Test
     void setIndexOutOfSize() {
         Rank rank = new Rank();
-        Piece piece = Piece.createWhitePawn();
+        Piece piece = Piece.createWhitePawn(a1);
 
         Assertions.assertAll(
                 () -> assertThatThrownBy(() -> rank.set(-1, piece))
@@ -49,22 +58,15 @@ class RankTest {
         );
     }
 
-    @DisplayName("빈 칸으로 이루어진 행을 생성한다.")
-    @Test
-    void createNoPiece() {
-        assertThat(Rank.createNoPiece().getPieces()).hasSize(Rank.WIDTH)
-                .containsOnly(Piece.createNoPiece());
-    }
-
     @DisplayName("행에 번호로 추가된 기물을 가져온다.")
     @ParameterizedTest(name = "index : {0}")
-    @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7})
-    void getPiece(int index) {
+    @ValueSource(strings = {"a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8"})
+    void getPiece(String position) {
         Rank rank = new Rank();
-        Piece piece = Piece.createBlackPawn();
+        Piece piece = Piece.createBlackPawn(new Position(position));
 
-        rank.set(index, piece);
+        rank.set(new Position(position).getX(), piece);
 
-        assertThat(rank.getPiece(index)).isEqualTo(Piece.createBlackPawn());
+        assertThat(rank.getPiece(new Position(position).getX())).isEqualTo(Piece.createBlackPawn(new Position(position)));
     }
 }

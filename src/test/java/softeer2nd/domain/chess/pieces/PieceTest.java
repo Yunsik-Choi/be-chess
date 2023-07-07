@@ -27,11 +27,15 @@ import softeer2nd.domain.chess.pieces.Piece.Type;
 public class PieceTest {
     private Piece white;
     private Piece black;
+    private Position a1;
+    private Position a3;
 
     @BeforeEach
     void setUp() {
-        this.white = Piece.createWhitePawn();
-        this.black = Piece.createBlackPawn();
+        a1 = new Position("a1");
+        a3 = new Position("a3");
+        this.white = Piece.createWhitePawn(a1);
+        this.black = Piece.createBlackPawn(a3);
     }
 
     @DisplayName("생성자로 전달된 색상인 white 또는 black 으로 기물이 생성되어야 한다")
@@ -55,11 +59,12 @@ public class PieceTest {
     class createFactoryMethod {
         private Piece createPieceBy(
                 final Color color,
-                final Type type
+                final Type type,
+                final Position position
         ) throws Exception {
             Constructor<Piece> declaredConstructor = ReflectionUtils.getDeclaredConstructor(Piece.class);
             declaredConstructor.setAccessible(true);
-            Piece piece = declaredConstructor.newInstance(color, type);
+            Piece piece = declaredConstructor.newInstance(color, type, position);
             declaredConstructor.setAccessible(false);
             return piece;
         }
@@ -67,103 +72,103 @@ public class PieceTest {
         @DisplayName("흰색 폰을 생성한다.")
         @Test
         void createWhitePawn() throws Exception {
-            assertThat(Piece.createWhitePawn()).isEqualTo(createPieceBy(Color.WHITE, PAWN));
+            assertThat(Piece.createWhitePawn(a1)).isEqualTo(createPieceBy(Color.WHITE, PAWN, a1));
         }
 
         @DisplayName("검은색 폰을 생성한다.")
         @Test
         void createBlackPawn() throws Exception {
-            assertThat(Piece.createBlackPawn()).isEqualTo(createPieceBy(Color.BLACK, PAWN));
+            assertThat(Piece.createBlackPawn(a1)).isEqualTo(createPieceBy(Color.BLACK, PAWN, a1));
         }
 
         @DisplayName("흰색 나이트을 생성한다.")
         @Test
         void createWhiteKnight() throws Exception {
-            assertThat(Piece.createWhiteKnight())
-                    .isEqualTo(createPieceBy(Color.WHITE, KNIGHT));
+            assertThat(Piece.createWhiteKnight(a1))
+                    .isEqualTo(createPieceBy(Color.WHITE, KNIGHT, a1));
         }
 
         @DisplayName("검은색 나이트을 생성한다.")
         @Test
         void createBlackKnight() throws Exception {
-            assertThat(Piece.createBlackKnight())
-                    .isEqualTo(createPieceBy(Color.BLACK, KNIGHT));
+            assertThat(Piece.createBlackKnight(a1))
+                    .isEqualTo(createPieceBy(Color.BLACK, KNIGHT, a1));
         }
 
         @DisplayName("흰색 룩을 생성한다.")
         @Test
         void createWhiteRook() throws Exception {
-            assertThat(Piece.createWhiteRook())
-                    .isEqualTo(createPieceBy(Color.WHITE, ROOK));
+            assertThat(Piece.createWhiteRook(a1))
+                    .isEqualTo(createPieceBy(Color.WHITE, ROOK, a1));
         }
 
         @DisplayName("검은색 룩을 생성한다.")
         @Test
         void createBlackRook() throws Exception {
-            assertThat(Piece.createBlackRook())
-                    .isEqualTo(createPieceBy(Color.BLACK, ROOK));
+            assertThat(Piece.createBlackRook(a1))
+                    .isEqualTo(createPieceBy(Color.BLACK, ROOK, a1));
         }
 
         @DisplayName("흰색 비숍을 생성한다.")
         @Test
         void createWhiteBishop() throws Exception {
-            assertThat(Piece.createWhiteBishop())
-                    .isEqualTo(createPieceBy(Color.WHITE, BISHOP));
+            assertThat(Piece.createWhiteBishop(a1))
+                    .isEqualTo(createPieceBy(Color.WHITE, BISHOP, a1));
         }
 
         @DisplayName("검은색 비숍을 생성한다.")
         @Test
         void createBlackBishop() throws Exception {
-            assertThat(Piece.createBlackBishop())
-                    .isEqualTo(createPieceBy(Color.BLACK, BISHOP));
+            assertThat(Piece.createBlackBishop(a1))
+                    .isEqualTo(createPieceBy(Color.BLACK, BISHOP, a1));
         }
 
         @DisplayName("흰색 퀸을 생성한다.")
         @Test
         void createWhiteQueen() throws Exception {
-            assertThat(Piece.createWhiteQueen())
-                    .isEqualTo(createPieceBy(Color.WHITE, QUEEN));
+            assertThat(Piece.createWhiteQueen(a1))
+                    .isEqualTo(createPieceBy(Color.WHITE, QUEEN, a1));
         }
 
         @DisplayName("검은색 퀸을 생성한다.")
         @Test
         void createBlackQueen() throws Exception {
-            assertThat(Piece.createBlackQueen())
-                    .isEqualTo(createPieceBy(Color.BLACK, QUEEN));
+            assertThat(Piece.createBlackQueen(a1))
+                    .isEqualTo(createPieceBy(Color.BLACK, QUEEN, a1));
         }
 
         @DisplayName("흰색 킹을 생성한다.")
         @Test
         void createWhiteKing() throws Exception {
-            assertThat(Piece.createWhiteKing())
-                    .isEqualTo(createPieceBy(Color.WHITE, KING));
+            assertThat(Piece.createWhiteKing(a1))
+                    .isEqualTo(createPieceBy(Color.WHITE, KING, a1));
         }
 
         @DisplayName("검은색 킹을 생성한다.")
         @Test
         void createBlackKing() throws Exception {
-            assertThat(Piece.createBlackKing())
-                    .isEqualTo(createPieceBy(Color.BLACK, KING));
+            assertThat(Piece.createBlackKing(a1))
+                    .isEqualTo(createPieceBy(Color.BLACK, KING, a1));
         }
 
         @DisplayName("빈칸을 생성한다.")
         @Test
         void createNoPiece() throws Exception {
-            assertThat(Piece.createNoPiece())
-                    .isEqualTo(createPieceBy(Color.NOCOLOR, NO_PIECE));
+            assertThat(Piece.createBlank(a1))
+                    .isEqualTo(createPieceBy(Color.NOCOLOR, NO_PIECE, a1));
         }
     }
 
     @DisplayName("백색 기물이면 true를 반환한다.")
     @Test
     void isWhite() {
-        Assertions.assertThat(Piece.createWhitePawn().isWhite()).isTrue();
+        Assertions.assertThat(Piece.createWhitePawn(a1).isWhite()).isTrue();
     }
 
     @DisplayName("흑색 기물이면 true를 반환한다.")
     @Test
     void isBlack() {
-        Assertions.assertThat(Piece.createBlackPawn().isBlack()).isTrue();
+        Assertions.assertThat(Piece.createBlackPawn(a1).isBlack()).isTrue();
     }
 
     @DisplayName("기물 이름의 값을 가져온다.")
@@ -179,22 +184,22 @@ public class PieceTest {
     @Test
     void isNoPiece() {
         assertAll(
-                () -> assertThat(Piece.createNoPiece().isNoPiece()).isTrue(),
-                () -> assertThat(Piece.createBlackPawn().isNoPiece()).isFalse()
+                () -> assertThat(Piece.createBlank(a1).isNoPiece()).isTrue(),
+                () -> assertThat(Piece.createBlackPawn(a1).isNoPiece()).isFalse()
         );
     }
 
     @DisplayName("기물을 팩토리 메서드로 생성한다.")
     @Test
     public void create_piece() {
-        verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), Type.PAWN);
-        verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), Type.KNIGHT);
-        verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), Type.ROOK);
-        verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), Type.BISHOP);
-        verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), Type.QUEEN);
-        verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), Type.KING);
+        verifyPiece(Piece.createWhitePawn(a1), Piece.createBlackPawn(a1), Type.PAWN);
+        verifyPiece(Piece.createWhiteKnight(a1), Piece.createBlackKnight(a1), Type.KNIGHT);
+        verifyPiece(Piece.createWhiteRook(a1), Piece.createBlackRook(a1), Type.ROOK);
+        verifyPiece(Piece.createWhiteBishop(a1), Piece.createBlackBishop(a1), Type.BISHOP);
+        verifyPiece(Piece.createWhiteQueen(a1), Piece.createBlackQueen(a1), Type.QUEEN);
+        verifyPiece(Piece.createWhiteKing(a1), Piece.createBlackKing(a1), Type.KING);
 
-        Piece blank = Piece.createNoPiece();
+        Piece blank = Piece.createBlank(a1);
         assertFalse(blank.isWhite());
         assertFalse(blank.isBlack());
         assertEquals(Type.NO_PIECE, blank.getType());

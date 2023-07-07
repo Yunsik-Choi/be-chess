@@ -1,6 +1,6 @@
 package softeer2nd.domain.chess;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.common.util.StringUtils.appendNewLine;
@@ -12,14 +12,18 @@ import org.junit.jupiter.api.Test;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Piece.Type;
+import softeer2nd.domain.chess.pieces.Position;
 
 @DisplayName("체스 판 관련 기능")
 public class BoardTest {
     private Board board;
 
+    private Position position;
+
     @BeforeEach
     void setUp() {
         this.board = new Board();
+        this.position = new Position("a1");
     }
 
     @DisplayName("체스판을 초기화한다.")
@@ -57,10 +61,10 @@ public class BoardTest {
     public void findPiece() {
         board.initialize();
 
-        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
-        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
-        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+        assertEquals(Piece.createBlackRook(new Position("a8")), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(new Position("h8")), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(new Position("a1")), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(new Position("h1")), board.findPiece("h1"));
     }
 
     @DisplayName("빈 체스판을 생성한다.")
@@ -82,7 +86,7 @@ public class BoardTest {
         board.initializeEmpty();
 
         String position = "b5";
-        Piece piece = Piece.createBlackRook();
+        Piece piece = Piece.createBlackRook(this.position);
         board.move(position, piece);
 
         assertEquals(piece, board.findPiece(position));
@@ -93,15 +97,15 @@ public class BoardTest {
     void calculatePoint() {
         board.initializeEmpty();
 
-        addPiece("b6", Piece.createBlackPawn());
-        addPiece("e6", Piece.createBlackQueen());
-        addPiece("b8", Piece.createBlackKing());
-        addPiece("c8", Piece.createBlackRook());
+        addPiece("b6", Piece.createBlackPawn(position));
+        addPiece("e6", Piece.createBlackQueen(position));
+        addPiece("b8", Piece.createBlackKing(position));
+        addPiece("c8", Piece.createBlackRook(position));
 
-        addPiece("f2", Piece.createWhitePawn());
-        addPiece("g2", Piece.createWhitePawn());
-        addPiece("e1", Piece.createWhiteRook());
-        addPiece("f1", Piece.createWhiteKing());
+        addPiece("f2", Piece.createWhitePawn(position));
+        addPiece("g2", Piece.createWhitePawn(position));
+        addPiece("e1", Piece.createWhiteRook(position));
+        addPiece("f1", Piece.createWhiteKing(position));
 
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
@@ -112,28 +116,28 @@ public class BoardTest {
     void sortByPointDesc() {
         board.initializeEmpty();
 
-        addPiece("b6", Piece.createBlackPawn());
-        addPiece("e6", Piece.createBlackQueen());
-        addPiece("b8", Piece.createBlackKing());
-        addPiece("c8", Piece.createBlackRook());
+        addPiece("b6", Piece.createBlackPawn(position));
+        addPiece("e6", Piece.createBlackQueen(position));
+        addPiece("b8", Piece.createBlackKing(position));
+        addPiece("c8", Piece.createBlackRook(position));
 
-        addPiece("f2", Piece.createWhitePawn());
-        addPiece("g2", Piece.createWhitePawn());
-        addPiece("e1", Piece.createWhiteRook());
-        addPiece("f1", Piece.createWhiteKing());
+        addPiece("f2", Piece.createWhitePawn(position));
+        addPiece("g2", Piece.createWhitePawn(position));
+        addPiece("e1", Piece.createWhiteRook(position));
+        addPiece("f1", Piece.createWhiteKing(position));
 
         assertAll(
                 () -> assertThat(board.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
-                        Piece.createBlackQueen(),
-                        Piece.createBlackRook(),
-                        Piece.createBlackPawn(),
-                        Piece.createBlackKing()
+                        Piece.createBlackQueen(position),
+                        Piece.createBlackRook(position),
+                        Piece.createBlackPawn(position),
+                        Piece.createBlackKing(position)
                 ),
                 () -> assertThat(board.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
-                        Piece.createWhiteRook(),
-                        Piece.createWhitePawn(),
-                        Piece.createWhitePawn(),
-                        Piece.createWhiteKing()
+                        Piece.createWhiteRook(position),
+                        Piece.createWhitePawn(position),
+                        Piece.createWhitePawn(position),
+                        Piece.createWhiteKing(position)
                 )
         );
     }
@@ -143,28 +147,28 @@ public class BoardTest {
     void sortByPointAsc() {
         board.initializeEmpty();
 
-        addPiece("b6", Piece.createBlackPawn());
-        addPiece("e6", Piece.createBlackQueen());
-        addPiece("b8", Piece.createBlackKing());
-        addPiece("c8", Piece.createBlackRook());
+        addPiece("b6", Piece.createBlackPawn(position));
+        addPiece("e6", Piece.createBlackQueen(position));
+        addPiece("b8", Piece.createBlackKing(position));
+        addPiece("c8", Piece.createBlackRook(position));
 
-        addPiece("f2", Piece.createWhitePawn());
-        addPiece("g2", Piece.createWhitePawn());
-        addPiece("e1", Piece.createWhiteRook());
-        addPiece("f1", Piece.createWhiteKing());
+        addPiece("f2", Piece.createWhitePawn(position));
+        addPiece("g2", Piece.createWhitePawn(position));
+        addPiece("e1", Piece.createWhiteRook(position));
+        addPiece("f1", Piece.createWhiteKing(position));
 
         assertAll(
                 () -> assertThat(board.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
-                        Piece.createBlackKing(),
-                        Piece.createBlackPawn(),
-                        Piece.createBlackRook(),
-                        Piece.createBlackQueen()
+                        Piece.createBlackKing(position),
+                        Piece.createBlackPawn(position),
+                        Piece.createBlackRook(position),
+                        Piece.createBlackQueen(position)
                 ),
                 () -> assertThat(board.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
-                        Piece.createWhiteKing(),
-                        Piece.createWhitePawn(),
-                        Piece.createWhitePawn(),
-                        Piece.createWhiteRook()
+                        Piece.createWhiteKing(position),
+                        Piece.createWhitePawn(position),
+                        Piece.createWhitePawn(position),
+                        Piece.createWhiteRook(position)
                 )
         );
     }
