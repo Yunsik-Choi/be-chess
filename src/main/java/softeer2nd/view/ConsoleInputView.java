@@ -7,6 +7,6 @@ public class ConsoleInputView implements InputView {
 
     @Override
     public String command() {
-        return scanner.next();
+        return scanner.nextLine().trim();
     }
 }
