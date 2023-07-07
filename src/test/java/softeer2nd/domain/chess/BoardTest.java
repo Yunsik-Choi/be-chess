@@ -173,6 +173,18 @@ public class BoardTest {
         );
     }
 
+    @DisplayName("기물을 현재 위치에서 다른 위치로 이동한다.")
+    @Test
+    public void movePiece() {
+        board.initialize();
+
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+        board.move(sourcePosition, targetPosition);
+        assertEquals(Piece.createBlank(new Position(sourcePosition)), board.findPiece(sourcePosition));
+        assertEquals(Piece.createWhitePawn(new Position(targetPosition)), board.findPiece(targetPosition));
+    }
+
     private void addPiece(String position, Piece piece) {
         board.move(position, piece);
     }
