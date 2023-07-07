@@ -5,9 +5,6 @@ import softeer2nd.view.InputView;
 import softeer2nd.view.OutputView;
 
 public class ChessGameController {
-    private static final String START = "start";
-    private static final String END = "end";
-
     private final OutputView outputView;
     private final InputView inputView;
 
@@ -17,21 +14,22 @@ public class ChessGameController {
     }
 
     public void main() {
+        Board board = new Board();
         while (true) {
             String command = inputView.command();
-            if (isNotExistsCommand(command)) {
+            if (Command.isNotExistsCommand(command)) {
                 throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
             }
-            if (command.equals(END)) {
+            if (Command.isEnd(command)) {
                 break;
             }
-            Board board = new Board();
-            board.initialize();
+            if (Command.isStart(command)) {
+                board.initialize();
+            }
+            if (Command.isMove(command)) {
+                board.move(Command.moveSource(command), Command.moveTarget(command));
+            }
             outputView.print(board.show());
         }
-    }
-
-    private static boolean isNotExistsCommand(final String command) {
-        return !command.equals(START) && !command.equals(END);
     }
 }
