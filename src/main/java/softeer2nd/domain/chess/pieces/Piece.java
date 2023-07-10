@@ -10,9 +10,9 @@ import static softeer2nd.domain.chess.pieces.Piece.Type.ROOK;
 
 import java.util.Objects;
 
-public class Piece {
+public abstract class Piece {
     public enum Color {
-        WHITE, BLACK, NOCOLOR;
+        WHITE, BLACK, NOCOLOR
 
     }
 
@@ -49,81 +49,75 @@ public class Piece {
         }
     }
 
-    private final Color color;
+    protected final Color color;
+    protected final Type type;
+    protected final Position position;
 
-    private final Type type;
-
-    private final Position position;
-
-    private Piece(final Color color, final Type type, final Position position) {
+    protected Piece(final Color color, final Type type, final Position position) {
         this.color = color;
         this.type = type;
         this.position = position;
     }
 
     public static Piece createBlank(final Position position) {
-        return new Piece(Color.NOCOLOR, NO_PIECE, position);
+        return new Blank(Color.NOCOLOR, NO_PIECE, position);
     }
 
     public static Piece createWhitePawn(final Position position) {
-        return createWhite(PAWN, position);
+        return new Pawn(Color.WHITE, PAWN, position);
     }
 
     public static Piece createBlackPawn(final Position position) {
-        return createBlack(PAWN, position);
+        return new Pawn(Color.BLACK, PAWN, position);
     }
 
     public static Piece createWhiteKnight(final Position position) {
-        return createWhite(KNIGHT, position);
+        return new Knight(Color.WHITE, KNIGHT, position);
     }
 
     public static Piece createBlackKnight(final Position position) {
-        return createBlack(KNIGHT, position);
+        return new Knight(Color.BLACK, KNIGHT, position);
     }
 
     public static Piece createWhiteRook(final Position position) {
-        return createWhite(ROOK, position);
+        return new Rook(Color.WHITE, ROOK, position);
     }
 
     public static Piece createBlackRook(final Position position) {
-        return createBlack(ROOK, position);
+        return new Rook(Color.BLACK, ROOK, position);
     }
 
     public static Piece createWhiteBishop(final Position position) {
-        return createWhite(BISHOP, position);
+        return new Bishop(Color.WHITE, BISHOP, position);
     }
 
     public static Piece createBlackBishop(final Position position) {
-        return createBlack(BISHOP, position);
+        return new Bishop(Color.BLACK, BISHOP, position);
     }
 
     public static Piece createWhiteQueen(final Position position) {
-        return createWhite(QUEEN, position);
+        return new Queen(Color.WHITE, QUEEN, position);
     }
 
     public static Piece createBlackQueen(final Position position) {
-        return createBlack(QUEEN, position);
+        return new Queen(Color.BLACK, QUEEN, position);
     }
 
     public static Piece createWhiteKing(final Position position) {
-        return createWhite(KING, position);
+        return new King(Color.WHITE, KING, position);
     }
 
     public static Piece createBlackKing(final Position position) {
-        return createBlack(KING, position);
+        return new King(Color.BLACK, KING, position);
     }
 
-    private static Piece createWhite(final Type type, final Position position) {
-        return new Piece(Color.WHITE, type, position);
-    }
+    public abstract String getWhiteRepresentation();
 
-    private static Piece createBlack(final Type type, final Position position) {
-        return new Piece(Color.BLACK, type, position);
-    }
+    public abstract String getBlackRepresentation();
 
-    public Piece move(final Position position) {
-        return new Piece(this.color, this.type, position);
-    }
+    public abstract double getPoint();
+
+    public abstract Piece move(final Position position);
 
     public Color getColor() {
         return this.color;

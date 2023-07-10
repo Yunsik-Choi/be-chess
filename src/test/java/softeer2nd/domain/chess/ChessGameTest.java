@@ -181,12 +181,19 @@ public class ChessGameTest {
     @Test
     public void movePiece() {
         chessGame.initialize();
-
         String sourcePosition = "b2";
         String targetPosition = "b3";
+
         chessGame.move(sourcePosition, targetPosition);
-        assertEquals(Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition));
-        assertEquals(Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition));
+
+        assertAll(
+                () -> assertEquals(
+                        Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
+                ),
+                () -> assertEquals(
+                        Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
+                )
+        );
     }
 
     private void addPiece(String position, Piece piece) {

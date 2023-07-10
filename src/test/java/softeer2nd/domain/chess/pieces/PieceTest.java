@@ -13,13 +13,11 @@ import static softeer2nd.domain.chess.pieces.Piece.Type.PAWN;
 import static softeer2nd.domain.chess.pieces.Piece.Type.QUEEN;
 import static softeer2nd.domain.chess.pieces.Piece.Type.ROOK;
 
-import java.lang.reflect.Constructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.ReflectionUtils;
 import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Piece.Type;
 
@@ -57,105 +55,93 @@ public class PieceTest {
     @DisplayName("기물 정적 팩토리 메서드 관련 기능")
     @Nested
     class createFactoryMethod {
-        private Piece createPieceBy(
-                final Color color,
-                final Type type,
-                final Position position
-        ) throws Exception {
-            Constructor<Piece> declaredConstructor = ReflectionUtils.getDeclaredConstructor(Piece.class);
-            declaredConstructor.setAccessible(true);
-            Piece piece = declaredConstructor.newInstance(color, type, position);
-            declaredConstructor.setAccessible(false);
-            return piece;
-        }
-
         @DisplayName("흰색 폰을 생성한다.")
         @Test
-        void createWhitePawn() throws Exception {
-            assertThat(Piece.createWhitePawn(a1)).isEqualTo(createPieceBy(Color.WHITE, PAWN, a1));
+        void createWhitePawn() {
+            assertThat(Piece.createWhitePawn(a1)).isEqualTo(new Pawn(Color.WHITE, PAWN, a1));
         }
 
         @DisplayName("검은색 폰을 생성한다.")
         @Test
-        void createBlackPawn() throws Exception {
-            assertThat(Piece.createBlackPawn(a1)).isEqualTo(createPieceBy(Color.BLACK, PAWN, a1));
+        void createBlackPawn() {
+            assertThat(Piece.createBlackPawn(a1)).isEqualTo(new Pawn(Color.BLACK, PAWN, a1));
         }
 
         @DisplayName("흰색 나이트을 생성한다.")
         @Test
-        void createWhiteKnight() throws Exception {
+        void createWhiteKnight() {
             assertThat(Piece.createWhiteKnight(a1))
-                    .isEqualTo(createPieceBy(Color.WHITE, KNIGHT, a1));
+                    .isEqualTo(new Knight(Color.WHITE, KNIGHT, a1));
         }
 
         @DisplayName("검은색 나이트을 생성한다.")
         @Test
-        void createBlackKnight() throws Exception {
+        void createBlackKnight() {
             assertThat(Piece.createBlackKnight(a1))
-                    .isEqualTo(createPieceBy(Color.BLACK, KNIGHT, a1));
+                    .isEqualTo(new Knight(Color.BLACK, KNIGHT, a1));
         }
 
         @DisplayName("흰색 룩을 생성한다.")
         @Test
-        void createWhiteRook() throws Exception {
+        void createWhiteRook() {
             assertThat(Piece.createWhiteRook(a1))
-                    .isEqualTo(createPieceBy(Color.WHITE, ROOK, a1));
+                    .isEqualTo(new Rook(Color.WHITE, ROOK, a1));
         }
 
         @DisplayName("검은색 룩을 생성한다.")
         @Test
-        void createBlackRook() throws Exception {
+        void createBlackRook() {
             assertThat(Piece.createBlackRook(a1))
-                    .isEqualTo(createPieceBy(Color.BLACK, ROOK, a1));
+                    .isEqualTo(new Rook(Color.BLACK, ROOK, a1));
         }
 
         @DisplayName("흰색 비숍을 생성한다.")
         @Test
-        void createWhiteBishop() throws Exception {
+        void createWhiteBishop() {
             assertThat(Piece.createWhiteBishop(a1))
-                    .isEqualTo(createPieceBy(Color.WHITE, BISHOP, a1));
+                    .isEqualTo(new Bishop(Color.WHITE, BISHOP, a1));
         }
 
         @DisplayName("검은색 비숍을 생성한다.")
         @Test
-        void createBlackBishop() throws Exception {
+        void createBlackBishop() {
             assertThat(Piece.createBlackBishop(a1))
-                    .isEqualTo(createPieceBy(Color.BLACK, BISHOP, a1));
+                    .isEqualTo(new Bishop(Color.BLACK, BISHOP, a1));
         }
 
         @DisplayName("흰색 퀸을 생성한다.")
         @Test
-        void createWhiteQueen() throws Exception {
+        void createWhiteQueen() {
             assertThat(Piece.createWhiteQueen(a1))
-                    .isEqualTo(createPieceBy(Color.WHITE, QUEEN, a1));
+                    .isEqualTo(new Queen(Color.WHITE, QUEEN, a1));
         }
 
         @DisplayName("검은색 퀸을 생성한다.")
         @Test
-        void createBlackQueen() throws Exception {
+        void createBlackQueen() {
             assertThat(Piece.createBlackQueen(a1))
-                    .isEqualTo(createPieceBy(Color.BLACK, QUEEN, a1));
+                    .isEqualTo(new Queen(Color.BLACK, QUEEN, a1));
         }
 
         @DisplayName("흰색 킹을 생성한다.")
         @Test
-        void createWhiteKing() throws Exception {
+        void createWhiteKing() {
             assertThat(Piece.createWhiteKing(a1))
-                    .isEqualTo(createPieceBy(Color.WHITE, KING, a1));
+                    .isEqualTo(new King(Color.WHITE, KING, a1));
         }
 
         @DisplayName("검은색 킹을 생성한다.")
         @Test
-        void createBlackKing() throws Exception {
+        void createBlackKing() {
             assertThat(Piece.createBlackKing(a1))
-                    .isEqualTo(createPieceBy(Color.BLACK, KING, a1));
+                    .isEqualTo(new King(Color.BLACK, KING, a1));
         }
 
         @DisplayName("빈칸을 생성한다.")
         @Test
-        void createNoPiece() throws Exception {
+        void createNoPiece() {
             assertThat(Piece.createBlank(a1))
-                    .isEqualTo(createPieceBy(Color.NOCOLOR, NO_PIECE, a1));
+                    .isEqualTo(new Blank(Color.NOCOLOR, NO_PIECE, a1));
         }
     }
 
