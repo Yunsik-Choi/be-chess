@@ -9,10 +9,8 @@ import static softeer2nd.domain.chess.ChessGame.WHITE_PAWN_LINE_Y;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Position;
 
 public class DefaultBoard implements Board {
@@ -39,24 +37,10 @@ public class DefaultBoard implements Board {
     }
 
     @Override
-    public int pieceCount() {
-        return this.ranks.stream()
-                .mapToInt(rank -> Long.valueOf(rank.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
-                .sum();
-    }
-
-    @Override
     public void move(final String sourcePosition, final String targetPosition) {
         Piece piece = findPiece(sourcePosition);
 
         move(targetPosition, piece);
-    }
-
-    @Override
-    public Piece findPiece(final String position) {
-        Position findPiecePosition = new Position(position);
-
-        return this.ranks.get(findPiecePosition.getY()).getPiece(findPiecePosition.getX());
     }
 
     @Override
@@ -66,15 +50,6 @@ public class DefaultBoard implements Board {
 
         this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
         this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece.move(movePosition));
-    }
-
-    @Override
-    public List<Piece> sortByPoint(final Color color, final PieceComparator pieceComparator) {
-        return ranks.stream()
-                .flatMap(rank -> rank.getPieces().stream())
-                .filter(piece -> piece.getColor().equals(color))
-                .sorted(pieceComparator.getComparator())
-                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
