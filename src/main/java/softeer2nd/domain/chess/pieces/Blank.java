@@ -1,6 +1,6 @@
 package softeer2nd.domain.chess.pieces;
 
-public class Blank extends Bishop {
+public class Blank extends Piece {
     private static final String REPRESENTATION = ".";
     private static final double POINT = 0.0;
 
