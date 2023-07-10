@@ -15,22 +15,22 @@ import softeer2nd.domain.chess.pieces.Piece.Type;
 import softeer2nd.domain.chess.pieces.Position;
 
 @DisplayName("체스 판 관련 기능")
-public class BoardTest {
-    private Board board;
+public class ChessGameTest {
+    private ChessGame chessGame;
 
     private Position position;
 
     @BeforeEach
     void setUp() {
-        this.board = new Board();
+        this.chessGame = new ChessGame(new DefaultChessView(), new DefaultChessPointCalculator(), new DefaultBoard());
         this.position = new Position("a1");
     }
 
     @DisplayName("체스판을 초기화한다.")
     @Test
     public void create() {
-        board.initialize();
-        assertEquals(32, board.pieceCount());
+        chessGame.initialize();
+        assertEquals(32, chessGame.pieceCount());
 
         String blankRank = appendNewLine("........");
 
@@ -40,62 +40,62 @@ public class BoardTest {
                         blankRank + blankRank + blankRank + blankRank +
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
-                board.show());
+                chessGame.show());
     }
 
     @DisplayName("기물의 색과 종류를 받아 개수를 반환한다.")
     @Test
     void pieceCount() {
-        board.initialize();
+        chessGame.initialize();
 
         Assertions.assertAll(
-                () -> assertEquals(8, board.pieceCount(Color.WHITE, Type.PAWN)),
-                () -> assertEquals(8, board.pieceCount(Color.BLACK, Type.PAWN)),
-                () -> assertEquals(2, board.pieceCount(Color.BLACK, Type.ROOK)),
-                () -> assertEquals(1, board.pieceCount(Color.BLACK, Type.QUEEN))
+                () -> assertEquals(8, chessGame.pieceCount(Color.WHITE, Type.PAWN)),
+                () -> assertEquals(8, chessGame.pieceCount(Color.BLACK, Type.PAWN)),
+                () -> assertEquals(2, chessGame.pieceCount(Color.BLACK, Type.ROOK)),
+                () -> assertEquals(1, chessGame.pieceCount(Color.BLACK, Type.QUEEN))
         );
     }
 
     @DisplayName("주어진 위치의 기물을 조회한다.")
     @Test
     public void findPiece() {
-        board.initialize();
+        chessGame.initialize();
 
-        assertEquals(Piece.createBlackRook(new Position("a8")), board.findPiece("a8"));
-        assertEquals(Piece.createBlackRook(new Position("h8")), board.findPiece("h8"));
-        assertEquals(Piece.createWhiteRook(new Position("a1")), board.findPiece("a1"));
-        assertEquals(Piece.createWhiteRook(new Position("h1")), board.findPiece("h1"));
+        assertEquals(Piece.createBlackRook(new Position("a8")), chessGame.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(new Position("h8")), chessGame.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(new Position("a1")), chessGame.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(new Position("h1")), chessGame.findPiece("h1"));
     }
 
     @DisplayName("빈 체스판을 생성한다.")
     @Test
     void initializeEmpty() {
-        board.initializeEmpty();
+        chessGame.initializeEmpty();
 
         String blankRank = appendNewLine("........");
 
         assertEquals(
                 blankRank + blankRank + blankRank + blankRank + blankRank + blankRank + blankRank + blankRank,
-                board.show()
+                chessGame.show()
         );
     }
 
     @DisplayName("임의의 기물을 체스판 위에 추가한다.")
     @Test
     void move() {
-        board.initializeEmpty();
+        chessGame.initializeEmpty();
 
         String position = "b5";
         Piece piece = Piece.createBlackRook(new Position(position));
-        board.move(position, piece);
+        chessGame.move(position, piece);
 
-        assertEquals(piece, board.findPiece(position));
+        assertEquals(piece, chessGame.findPiece(position));
     }
 
     @DisplayName("체스 프로그램 점수를 계산한다.")
     @Test
     void calculatePoint() {
-        board.initializeEmpty();
+        chessGame.initializeEmpty();
 
         addPiece("b6", Piece.createBlackPawn(position));
         addPiece("e6", Piece.createBlackQueen(position));
@@ -107,14 +107,14 @@ public class BoardTest {
         addPiece("e1", Piece.createWhiteRook(position));
         addPiece("f1", Piece.createWhiteKing(position));
 
-        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
-        assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
+        assertEquals(15.0, chessGame.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.0, chessGame.calculatePoint(Color.WHITE), 0.01);
     }
 
     @DisplayName("기물의 점수가 높은 순으로 정렬한다.")
     @Test
     void sortByPointDesc() {
-        board.initializeEmpty();
+        chessGame.initializeEmpty();
 
         addPiece("b6", Piece.createBlackPawn(new Position("b6")));
         addPiece("e6", Piece.createBlackQueen(new Position("e6")));
@@ -127,13 +127,15 @@ public class BoardTest {
         addPiece("f1", Piece.createWhiteKing(new Position("f1")));
 
         assertAll(
-                () -> assertThat(board.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
+                () -> assertThat(
+                        chessGame.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
                         Piece.createBlackQueen(new Position("e6")),
                         Piece.createBlackRook(new Position("c8")),
                         Piece.createBlackPawn(new Position("b6")),
                         Piece.createBlackKing(new Position("b8"))
                 ),
-                () -> assertThat(board.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
+                () -> assertThat(
+                        chessGame.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_DESC)).containsExactly(
                         Piece.createWhiteRook(new Position("e1")),
                         Piece.createWhitePawn(new Position("f2")),
                         Piece.createWhitePawn(new Position("g2")),
@@ -145,7 +147,7 @@ public class BoardTest {
     @DisplayName("기물의 점수가 낮은 순으로 정렬한다.")
     @Test
     void sortByPointAsc() {
-        board.initializeEmpty();
+        chessGame.initializeEmpty();
 
         addPiece("b6", Piece.createBlackPawn(new Position("b6")));
         addPiece("e6", Piece.createBlackQueen(new Position("e6")));
@@ -158,13 +160,15 @@ public class BoardTest {
         addPiece("f1", Piece.createWhiteKing(new Position("f1")));
 
         assertAll(
-                () -> assertThat(board.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
+                () -> assertThat(
+                        chessGame.sortByPoint(Color.BLACK, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
                         Piece.createBlackKing(new Position("b8")),
                         Piece.createBlackPawn(new Position("b6")),
                         Piece.createBlackRook(new Position("c8")),
                         Piece.createBlackQueen(new Position("e6"))
                 ),
-                () -> assertThat(board.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
+                () -> assertThat(
+                        chessGame.sortByPoint(Color.WHITE, PieceComparator.SORT_BY_POINT_ASC)).containsExactly(
                         Piece.createWhiteKing(new Position("f1")),
                         Piece.createWhitePawn(new Position("f2")),
                         Piece.createWhitePawn(new Position("g2")),
@@ -176,16 +180,16 @@ public class BoardTest {
     @DisplayName("기물을 현재 위치에서 다른 위치로 이동한다.")
     @Test
     public void movePiece() {
-        board.initialize();
+        chessGame.initialize();
 
         String sourcePosition = "b2";
         String targetPosition = "b3";
-        board.move(sourcePosition, targetPosition);
-        assertEquals(Piece.createBlank(new Position(sourcePosition)), board.findPiece(sourcePosition));
-        assertEquals(Piece.createWhitePawn(new Position(targetPosition)), board.findPiece(targetPosition));
+        chessGame.move(sourcePosition, targetPosition);
+        assertEquals(Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition));
+        assertEquals(Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition));
     }
 
     private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
+        chessGame.move(position, piece);
     }
 }

@@ -1,5 +1,7 @@
 package softeer2nd.domain.chess;
 
+import static softeer2nd.domain.chess.ChessGame.WIDTH;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -9,8 +11,6 @@ import softeer2nd.domain.chess.pieces.Piece.Type;
 import softeer2nd.domain.chess.pieces.Position;
 
 public class Rank {
-    public static final int WIDTH = 8;
-
     private final List<Piece> pieces = new ArrayList<>();
 
     public Rank() {
@@ -52,7 +52,7 @@ public class Rank {
 
     public static Rank createBlackPawn(final int y) {
         Rank rank = new Rank();
-        for (int x = 0; x < Rank.WIDTH; x++) {
+        for (int x = 0; x < WIDTH; x++) {
             rank.pieces.set(x, Piece.createBlackPawn(new Position(x, y)));
         }
         return rank;
@@ -60,7 +60,7 @@ public class Rank {
 
     public static Rank createWhitePawn(final int y) {
         Rank rank = new Rank();
-        for (int x = 0; x < Rank.WIDTH; x++) {
+        for (int x = 0; x < WIDTH; x++) {
             rank.pieces.set(x, Piece.createWhitePawn(new Position(x, y)));
         }
         return rank;

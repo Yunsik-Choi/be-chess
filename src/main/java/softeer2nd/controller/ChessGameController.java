@@ -1,6 +1,9 @@
 package softeer2nd.controller;
 
-import softeer2nd.domain.chess.Board;
+import softeer2nd.domain.chess.ChessGame;
+import softeer2nd.domain.chess.DefaultBoard;
+import softeer2nd.domain.chess.DefaultChessPointCalculator;
+import softeer2nd.domain.chess.DefaultChessView;
 import softeer2nd.view.InputView;
 import softeer2nd.view.OutputView;
 
@@ -14,7 +17,7 @@ public class ChessGameController {
     }
 
     public void main() {
-        Board board = new Board();
+        ChessGame chessGame = new ChessGame(new DefaultChessView(), new DefaultChessPointCalculator(), new DefaultBoard());
         while (true) {
             String command = inputView.command();
             if (Command.isNotExistsCommand(command)) {
@@ -24,12 +27,12 @@ public class ChessGameController {
                 break;
             }
             if (Command.isStart(command)) {
-                board.initialize();
+                chessGame.initialize();
             }
             if (Command.isMove(command)) {
-                board.move(Command.moveSource(command), Command.moveTarget(command));
+                chessGame.move(Command.moveSource(command), Command.moveTarget(command));
             }
-            outputView.print(board.show());
+            outputView.print(chessGame.show());
         }
     }
 }

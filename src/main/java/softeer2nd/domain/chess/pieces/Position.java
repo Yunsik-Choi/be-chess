@@ -1,8 +1,9 @@
 package softeer2nd.domain.chess.pieces;
 
+import static softeer2nd.domain.chess.ChessGame.WIDTH;
+
 import java.util.Objects;
-import softeer2nd.domain.chess.Board;
-import softeer2nd.domain.chess.Rank;
+import softeer2nd.domain.chess.ChessGame;
 
 public class Position {
     private static final int POSITION_LENGTH = 2;
@@ -16,6 +17,7 @@ public class Position {
         }
         int xPos = lowerCaseToInt(position);
         int yPos = convertMathCode(position);
+
         validationPositionOutOfBound(xPos, yPos);
         this.x = xPos;
         this.y = yPos;
@@ -32,11 +34,11 @@ public class Position {
     }
 
     private int convertMathCode(final String position) {
-        return Board.HEIGHT_SIZE - Character.getNumericValue(position.charAt(1));
+        return ChessGame.HEIGHT - Character.getNumericValue(position.charAt(1));
     }
 
     private void validationPositionOutOfBound(final int xPos, final int yPos) {
-        if (xPos < 0 || xPos >= Rank.WIDTH || yPos < 0 || yPos >= Board.HEIGHT_SIZE) {
+        if (xPos < 0 || xPos >= WIDTH || yPos < 0 || yPos >= ChessGame.HEIGHT) {
             throw new IllegalArgumentException("위치 정보가 체스판의 크기를 벗어났습니다.");
         }
     }

@@ -2,6 +2,7 @@ package softeer2nd.domain.chess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static softeer2nd.domain.chess.ChessGame.WIDTH;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +54,7 @@ class RankTest {
         Assertions.assertAll(
                 () -> assertThatThrownBy(() -> rank.set(-1, piece))
                         .isInstanceOf(IndexOutOfBoundsException.class),
-                () -> assertThatThrownBy(() -> rank.set(Rank.WIDTH, piece))
+                () -> assertThatThrownBy(() -> rank.set(WIDTH, piece))
                         .isInstanceOf(IndexOutOfBoundsException.class)
         );
     }
