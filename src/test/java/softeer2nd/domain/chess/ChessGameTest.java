@@ -7,6 +7,7 @@ import static softeer2nd.common.util.StringUtils.appendNewLine;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
@@ -162,23 +163,27 @@ public class ChessGameTest {
         );
     }
 
-    @DisplayName("기물을 현재 위치에서 다른 위치로 이동한다.")
-    @Test
-    public void movePiece() {
-        chessGame.initialize();
-        String sourcePosition = "b2";
-        String targetPosition = "b3";
+    @DisplayName("기물 이동 관련 테스트")
+    @Nested
+    class MovePiece {
+        @DisplayName("흰색 폰을 이동시킨다.")
+        @Test
+        public void moveWhitePawn() {
+            chessGame.initialize();
+            String sourcePosition = "b2";
+            String targetPosition = "b3";
 
-        chessGame.move(sourcePosition, targetPosition);
+            chessGame.move(sourcePosition, targetPosition);
 
-        assertAll(
-                () -> assertEquals(
-                        Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
-                ),
-                () -> assertEquals(
-                        Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
-                )
-        );
+            assertAll(
+                    () -> assertEquals(
+                            Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
+                    ),
+                    () -> assertEquals(
+                            Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
+                    )
+            );
+        }
     }
 
     private void addPiece(String position, Piece piece) {

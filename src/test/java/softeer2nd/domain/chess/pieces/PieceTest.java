@@ -49,90 +49,90 @@ public class PieceTest {
         @DisplayName("흰색 폰을 생성한다.")
         @Test
         void createWhitePawn() {
-            assertThat(Piece.createWhitePawn(a1)).isEqualTo(new Pawn(Color.WHITE, a1));
+            assertThat(Piece.createWhitePawn(a1)).isEqualTo(new Pawn(Color.WHITE, a1, Direction.whitePawnDirection()));
         }
 
         @DisplayName("검은색 폰을 생성한다.")
         @Test
         void createBlackPawn() {
-            assertThat(Piece.createBlackPawn(a1)).isEqualTo(new Pawn(Color.BLACK, a1));
+            assertThat(Piece.createBlackPawn(a1)).isEqualTo(new Pawn(Color.BLACK, a1, Direction.blackPawnDirection()));
         }
 
         @DisplayName("흰색 나이트을 생성한다.")
         @Test
         void createWhiteKnight() {
             assertThat(Piece.createWhiteKnight(a1))
-                    .isEqualTo(new Knight(Color.WHITE, a1));
+                    .isEqualTo(new Knight(Color.WHITE, a1, Direction.knightDirection()));
         }
 
         @DisplayName("검은색 나이트을 생성한다.")
         @Test
         void createBlackKnight() {
             assertThat(Piece.createBlackKnight(a1))
-                    .isEqualTo(new Knight(Color.BLACK, a1));
+                    .isEqualTo(new Knight(Color.BLACK, a1, Direction.knightDirection()));
         }
 
         @DisplayName("흰색 룩을 생성한다.")
         @Test
         void createWhiteRook() {
             assertThat(Piece.createWhiteRook(a1))
-                    .isEqualTo(new Rook(Color.WHITE, a1));
+                    .isEqualTo(new Rook(Color.WHITE, a1, Direction.linearDirection()));
         }
 
         @DisplayName("검은색 룩을 생성한다.")
         @Test
         void createBlackRook() {
             assertThat(Piece.createBlackRook(a1))
-                    .isEqualTo(new Rook(Color.BLACK, a1));
+                    .isEqualTo(new Rook(Color.BLACK, a1, Direction.linearDirection()));
         }
 
         @DisplayName("흰색 비숍을 생성한다.")
         @Test
         void createWhiteBishop() {
             assertThat(Piece.createWhiteBishop(a1))
-                    .isEqualTo(new Bishop(Color.WHITE, a1));
+                    .isEqualTo(new Bishop(Color.WHITE, a1, Direction.diagonalDirection()));
         }
 
         @DisplayName("검은색 비숍을 생성한다.")
         @Test
         void createBlackBishop() {
             assertThat(Piece.createBlackBishop(a1))
-                    .isEqualTo(new Bishop(Color.BLACK, a1));
+                    .isEqualTo(new Bishop(Color.BLACK, a1, Direction.diagonalDirection()));
         }
 
         @DisplayName("흰색 퀸을 생성한다.")
         @Test
         void createWhiteQueen() {
             assertThat(Piece.createWhiteQueen(a1))
-                    .isEqualTo(new Queen(Color.WHITE, a1));
+                    .isEqualTo(new Queen(Color.WHITE, a1, Direction.everyDirection()));
         }
 
         @DisplayName("검은색 퀸을 생성한다.")
         @Test
         void createBlackQueen() {
             assertThat(Piece.createBlackQueen(a1))
-                    .isEqualTo(new Queen(Color.BLACK, a1));
+                    .isEqualTo(new Queen(Color.BLACK, a1, Direction.everyDirection()));
         }
 
         @DisplayName("흰색 킹을 생성한다.")
         @Test
         void createWhiteKing() {
             assertThat(Piece.createWhiteKing(a1))
-                    .isEqualTo(new King(Color.WHITE, a1));
+                    .isEqualTo(new King(Color.WHITE, a1, Direction.everyDirection()));
         }
 
         @DisplayName("검은색 킹을 생성한다.")
         @Test
         void createBlackKing() {
             assertThat(Piece.createBlackKing(a1))
-                    .isEqualTo(new King(Color.BLACK, a1));
+                    .isEqualTo(new King(Color.BLACK, a1, Direction.everyDirection()));
         }
 
         @DisplayName("빈칸을 생성한다.")
         @Test
         void createNoPiece() {
             assertThat(Piece.createBlank(a1))
-                    .isEqualTo(new Blank(Color.NOCOLOR, a1));
+                    .isEqualTo(new Blank(Color.NOCOLOR, a1, Direction.blankDirection()));
         }
     }
 

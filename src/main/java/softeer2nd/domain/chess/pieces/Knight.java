@@ -1,11 +1,13 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.List;
+
 public class Knight extends Piece {
     private static final String REPRESENTATION = "n";
     private static final double POINT = 2.5;
 
-    protected Knight(final Color color, final Position position) {
-        super(color, position);
+    protected Knight(final Color color, final Position position, final List<Direction> directions) {
+        super(color, position, directions);
     }
 
     @Override
@@ -23,6 +25,6 @@ public class Knight extends Piece {
 
     @Override
     public Piece move(final Position targetPosition) {
-        return new Knight(this.color, targetPosition);
+        return new Knight(this.color, targetPosition, this.directions);
     }
 }

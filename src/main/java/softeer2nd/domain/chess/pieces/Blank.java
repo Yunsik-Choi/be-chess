@@ -1,11 +1,13 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.List;
+
 public class Blank extends Piece {
     private static final String REPRESENTATION = ".";
     private static final double POINT = 0.0;
 
-    protected Blank(final Color color, final Position position) {
-        super(color, position);
+    protected Blank(final Color color, final Position position, final List<Direction> directions) {
+        super(color, position, directions);
     }
 
     @Override
@@ -23,6 +25,6 @@ public class Blank extends Piece {
 
     @Override
     public Piece move(final Position targetPosition) {
-        return new Blank(this.color, targetPosition);
+        return new Blank(this.color, targetPosition, this.directions);
     }
 }

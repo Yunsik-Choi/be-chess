@@ -1,11 +1,13 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.List;
+
 public class Rook extends Piece {
     private static final String REPRESENTATION = "r";
     private static final double POINT = 5.0;
 
-    protected Rook(final Color color, final Position position) {
-        super(color, position);
+    protected Rook(final Color color, final Position position, final List<Direction> directions) {
+        super(color, position, directions);
     }
 
     @Override
@@ -23,6 +25,6 @@ public class Rook extends Piece {
 
     @Override
     public Piece move(final Position targetPosition) {
-        return new Rook(this.color, targetPosition);
+        return new Rook(this.color, targetPosition, this.directions);
     }
 }
