@@ -3,7 +3,6 @@ package softeer2nd.domain.chess;
 import java.util.List;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
-import softeer2nd.domain.chess.pieces.Piece.Type;
 
 public interface Board {
     void initializeEmpty();
@@ -11,8 +10,6 @@ public interface Board {
     void initialize();
 
     int pieceCount();
-
-    int pieceCount(final Color color, final Type type);
 
     void move(final String sourcePosition, final String targetPosition);
 

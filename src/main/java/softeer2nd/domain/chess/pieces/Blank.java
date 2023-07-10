@@ -4,18 +4,16 @@ public class Blank extends Bishop {
     private static final String REPRESENTATION = ".";
     private static final double POINT = 0.0;
 
-    protected Blank(final Color color, final Type type, final Position position) {
-        super(color, type, position);
+    protected Blank(final Color color, final Position position) {
+        super(color, position);
     }
 
     @Override
-    public String getWhiteRepresentation() {
+    public String getRepresentationPerPiece() {
+        if (isBlack()) {
+            return REPRESENTATION.toUpperCase();
+        }
         return REPRESENTATION;
-    }
-
-    @Override
-    public String getBlackRepresentation() {
-        return REPRESENTATION.toUpperCase();
     }
 
     @Override
@@ -25,6 +23,6 @@ public class Blank extends Bishop {
 
     @Override
     public Piece move(final Position targetPosition) {
-        return new Blank(this.color, this.type, targetPosition);
+        return new Blank(this.color, targetPosition);
     }
 }

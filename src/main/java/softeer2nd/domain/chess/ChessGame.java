@@ -3,7 +3,6 @@ package softeer2nd.domain.chess;
 import java.util.List;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
-import softeer2nd.domain.chess.pieces.Piece.Type;
 
 public class ChessGame {
     public static final int HEIGHT = 8;
@@ -37,10 +36,6 @@ public class ChessGame {
 
     public int pieceCount() {
         return this.board.pieceCount();
-    }
-
-    public int pieceCount(final Color color, final Type type) {
-        return this.board.pieceCount(color, type);
     }
 
     public void move(final String sourcePosition, final String targetPosition) {

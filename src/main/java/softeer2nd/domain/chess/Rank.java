@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.Piece.Color;
-import softeer2nd.domain.chess.pieces.Piece.Type;
 import softeer2nd.domain.chess.pieces.Position;
 
 public class Rank {
@@ -79,12 +77,6 @@ public class Rank {
 
     private static boolean isIndexOutOfBound(final int index) {
         return index < 0 || index >= WIDTH;
-    }
-
-    public int pieceCount(final Color color, final Type type) {
-        return Long.valueOf(this.pieces.stream()
-                .filter(piece -> piece.getColor().equals(color) && piece.getType().equals(type))
-                .count()).intValue();
     }
 
     public Piece getPiece(final int index) {

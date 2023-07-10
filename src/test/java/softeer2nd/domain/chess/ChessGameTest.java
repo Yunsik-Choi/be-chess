@@ -5,13 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.common.util.StringUtils.appendNewLine;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
-import softeer2nd.domain.chess.pieces.Piece.Type;
 import softeer2nd.domain.chess.pieces.Position;
 
 @DisplayName("체스 판 관련 기능")
@@ -41,19 +39,6 @@ public class ChessGameTest {
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
                 chessGame.show());
-    }
-
-    @DisplayName("기물의 색과 종류를 받아 개수를 반환한다.")
-    @Test
-    void pieceCount() {
-        chessGame.initialize();
-
-        Assertions.assertAll(
-                () -> assertEquals(8, chessGame.pieceCount(Color.WHITE, Type.PAWN)),
-                () -> assertEquals(8, chessGame.pieceCount(Color.BLACK, Type.PAWN)),
-                () -> assertEquals(2, chessGame.pieceCount(Color.BLACK, Type.ROOK)),
-                () -> assertEquals(1, chessGame.pieceCount(Color.BLACK, Type.QUEEN))
-        );
     }
 
     @DisplayName("주어진 위치의 기물을 조회한다.")

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
-import softeer2nd.domain.chess.pieces.Piece.Type;
 import softeer2nd.domain.chess.pieces.Position;
 
 public class DefaultBoard implements Board {
@@ -43,13 +42,6 @@ public class DefaultBoard implements Board {
     public int pieceCount() {
         return this.ranks.stream()
                 .mapToInt(rank -> Long.valueOf(rank.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
-                .sum();
-    }
-
-    @Override
-    public int pieceCount(final Color color, final Type type) {
-        return this.ranks.stream()
-                .mapToInt(rank -> rank.pieceCount(color, type))
                 .sum();
     }
 

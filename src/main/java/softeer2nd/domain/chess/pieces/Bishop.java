@@ -4,18 +4,16 @@ public class Bishop extends Piece {
     private static final String REPRESENTATION = "b";
     private static final double POINT = 3.0;
 
-    protected Bishop(final Color color, final Type type, final Position position) {
-        super(color, type, position);
+    protected Bishop(final Color color, final Position position) {
+        super(color, position);
     }
 
     @Override
-    public String getWhiteRepresentation() {
+    public String getRepresentationPerPiece() {
+        if (isBlack()) {
+            return REPRESENTATION.toUpperCase();
+        }
         return REPRESENTATION;
-    }
-
-    @Override
-    public String getBlackRepresentation() {
-        return REPRESENTATION.toUpperCase();
     }
 
     @Override
@@ -25,6 +23,6 @@ public class Bishop extends Piece {
 
     @Override
     public Piece move(final Position targetPosition) {
-        return new Bishop(this.color, this.type, targetPosition);
+        return new Bishop(this.color, targetPosition);
     }
 }
