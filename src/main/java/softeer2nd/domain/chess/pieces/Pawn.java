@@ -24,7 +24,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Piece move(final Position targetPosition) {
+    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         return new Pawn(this.color, targetPosition, this.directions);
     }
 }

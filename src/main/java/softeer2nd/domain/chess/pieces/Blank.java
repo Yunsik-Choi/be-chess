@@ -24,7 +24,7 @@ public class Blank extends Piece {
     }
 
     @Override
-    public Piece move(final Position targetPosition) {
+    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         return new Blank(this.color, targetPosition, this.directions);
     }
 }

@@ -24,7 +24,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public Piece move(final Position targetPosition) {
+    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         return new Knight(this.color, targetPosition, this.directions);
     }
 }

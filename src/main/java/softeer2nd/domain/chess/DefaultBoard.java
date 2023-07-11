@@ -9,6 +9,7 @@ import static softeer2nd.domain.chess.ChessGame.WHITE_PAWN_LINE_Y;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Position;
@@ -49,7 +50,10 @@ public class DefaultBoard implements Board {
         Position originPosition = piece.getPosition();
 
         this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
-        this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece.move(movePosition));
+        this.ranks.get(
+                movePosition.getY()).set(movePosition.getX(),
+                piece.move(movePosition, this.ranks.stream().map(Rank::getPieces).collect(Collectors.toList()))
+        );
     }
 
     @Override

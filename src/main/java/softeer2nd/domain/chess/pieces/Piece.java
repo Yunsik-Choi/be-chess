@@ -74,7 +74,7 @@ public abstract class Piece {
 
     public abstract double getPoint();
 
-    public abstract Piece move(final Position position);
+    public abstract Piece move(final Position targetPosition, final List<List<Piece>> board);
 
     public Color getColor() {
         return this.color;

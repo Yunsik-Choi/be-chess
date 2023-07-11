@@ -24,7 +24,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Piece move(final Position targetPosition) {
+    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         return new Rook(this.color, targetPosition, this.directions);
     }
 }
