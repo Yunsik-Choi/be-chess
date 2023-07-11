@@ -68,12 +68,12 @@ public class ChessGameTest {
 
     @DisplayName("임의의 기물을 체스판 위에 추가한다.")
     @Test
-    void move() {
+    void addPiece() {
         chessGame.initializeEmpty();
 
         String position = "b5";
         Piece piece = Piece.createBlackRook(new Position(position));
-        chessGame.move(position, piece);
+        chessGame.addPiece(position, piece);
 
         assertEquals(piece, chessGame.findPiece(position));
     }
@@ -186,7 +186,17 @@ public class ChessGameTest {
         }
     }
 
+    private void setBlackPawn(final String position) {
+        Piece leftDiagonalBlackPiece = Piece.createBlackPawn(new Position(position));
+        chessGame.move(position, leftDiagonalBlackPiece);
+    }
+
+    private void setWhitePawn(final String position) {
+        Piece leftDiagonalBlackPiece = Piece.createBlackPawn(new Position(position));
+        chessGame.move(position, leftDiagonalBlackPiece);
+    }
+
     private void addPiece(String position, Piece piece) {
-        chessGame.move(position, piece);
+        chessGame.addPiece(position, piece);
     }
 }

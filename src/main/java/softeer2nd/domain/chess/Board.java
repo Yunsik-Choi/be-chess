@@ -15,6 +15,8 @@ public interface Board {
 
     void move(final String position, final Piece piece);
 
+    void addPiece(final String position, final Piece piece);
+
     List<Rank> getRanks();
 
     default int pieceCount() {

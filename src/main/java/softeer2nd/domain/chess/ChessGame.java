@@ -52,6 +52,10 @@ public class ChessGame {
         this.board.move(position, piece);
     }
 
+    public void addPiece(final String position, final Piece piece) {
+        this.board.addPiece(position, piece);
+    }
+
     public double calculatePoint(final Color color) {
         return this.chessPointCalculator.calculatePoint(board, color);
     }

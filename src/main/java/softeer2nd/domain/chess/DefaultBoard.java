@@ -49,11 +49,18 @@ public class DefaultBoard implements Board {
         Position movePosition = new Position(position);
         Position originPosition = piece.getPosition();
 
-        this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
         this.ranks.get(
                 movePosition.getY()).set(movePosition.getX(),
                 piece.move(movePosition, this.ranks.stream().map(Rank::getPieces).collect(Collectors.toList()))
         );
+        this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
+    }
+
+    @Override
+    public void addPiece(final String position, final Piece piece) {
+        Position movePosition = new Position(position);
+
+        this.ranks.get(movePosition.getY()).set(movePosition.getX(), piece);
     }
 
     @Override
