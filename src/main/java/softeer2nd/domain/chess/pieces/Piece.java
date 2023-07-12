@@ -87,14 +87,14 @@ public abstract class Piece {
 
     public abstract double getPoint();
 
-    public abstract Piece move(final Position targetPosition, final List<List<Piece>> board);
-
     protected abstract void addMovablePosition(
             final Direction direction,
             final List<List<Piece>> board,
             final ArrayList<Position> result,
             final Position movePosition
     );
+
+    protected abstract Piece create(final Position position);
 
     public Color getColor() {
         return this.color;
@@ -136,7 +136,18 @@ public abstract class Piece {
         return board.get(position.getY()).get(position.getX()).color.equals(enemy.get());
     }
 
-    protected void validationTargetPositionEqualCurrentPosition(final Position targetPosition) {
+    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
+        validationTargetPositionEqualCurrentPosition(targetPosition);
+
+        return this.directions.stream()
+                .flatMap(direction -> getMovablePosition(this.position, direction, board).stream())
+                .filter(position -> position.equals(targetPosition))
+                .findFirst()
+                .map(this::create)
+                .orElseThrow(moveFailException());
+    }
+
+    private void validationTargetPositionEqualCurrentPosition(final Position targetPosition) {
         if (targetPosition.equals(this.position)) {
             throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
         }
@@ -156,7 +167,7 @@ public abstract class Piece {
         return result;
     }
 
-    protected static Supplier<RuntimeException> moveFailException() {
+    private static Supplier<RuntimeException> moveFailException() {
         return () -> new IllegalArgumentException("이동에 실패했습니다.");
     }
 

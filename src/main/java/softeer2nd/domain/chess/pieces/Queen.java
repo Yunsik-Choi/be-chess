@@ -25,15 +25,8 @@ public class Queen extends Piece {
     }
 
     @Override
-    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
-        validationTargetPositionEqualCurrentPosition(targetPosition);
-
-        return this.directions.stream()
-                .flatMap(direction -> getMovablePosition(this.position, direction, board).stream())
-                .filter(position -> position.equals(targetPosition))
-                .findFirst()
-                .map(position -> new Queen(this.color, position, this.directions))
-                .orElseThrow(moveFailException());
+    protected Piece create(final Position position) {
+        return new Queen(this.color, position, this.directions);
     }
 
     @Override
