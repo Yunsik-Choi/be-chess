@@ -51,6 +51,10 @@ public class Position {
         return y;
     }
 
+    public Position move(final Direction direction) {
+        return new Position(this.x - direction.getXDegree(), this.y - direction.getYDegree());
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {

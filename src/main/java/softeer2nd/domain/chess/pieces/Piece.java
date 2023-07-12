@@ -2,10 +2,21 @@ package softeer2nd.domain.chess.pieces;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public abstract class Piece {
     public enum Color {
-        WHITE, BLACK, NOCOLOR
+        WHITE, BLACK, NOCOLOR;
+
+        public Color getEnemy() {
+            if (this.equals(WHITE)) {
+                return BLACK;
+            }
+            if (this.equals(BLACK)) {
+                return WHITE;
+            }
+            return null;
+        }
     }
 
     protected final Color color;
@@ -98,6 +109,22 @@ public abstract class Piece {
 
     public boolean isNoPiece() {
         return new Blank(this.color, this.getPosition(), this.directions).equals(this);
+    }
+
+    public boolean isSameColor(final Position position, final List<List<Piece>> board) {
+        return board.get(position.getY()).get(position.getX()).color.equals(this.color);
+    }
+
+    public boolean isBlank(final Position position, final List<List<Piece>> board) {
+        return board.get(position.getY()).get(position.getY()).color.equals(Color.NOCOLOR);
+    }
+
+    public boolean isEnemy(final Color color, final Position position, final List<List<Piece>> board) {
+        Optional<Color> enemy = Optional.ofNullable(color.getEnemy());
+        if (enemy.isEmpty()) {
+            return false;
+        }
+        return board.get(position.getY()).get(position.getX()).color.equals(enemy.get());
     }
 
     @Override
