@@ -426,6 +426,63 @@ public class ChessGameTest {
                         .isInstanceOf(IllegalArgumentException.class);
             }
         }
+
+        @DisplayName("킹 이동 관련 테스트")
+        @Nested
+        class King {
+            @DisplayName("킹을 이동시킨다.")
+            @ValueSource(strings = {"c5", "c4", "c3", "d3", "d5", "e5", "e4", "e3"})
+            @ParameterizedTest(name = "position : {0}")
+            void move(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackKing(new Position(originPosition)));
+
+                chessGame.move(originPosition, targetPosition);
+
+                assertEquals(Piece.createBlackKing(new Position(targetPosition)), chessGame.findPiece(targetPosition));
+            }
+
+            @DisplayName("킹은 아군의 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"c5", "d5", "e5", "c4", "c3", "d3", "e3", "e4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveAlly(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createWhiteKing(new Position(originPosition)));
+                setWhitePawn("c5");
+                setWhitePawn("d5");
+                setWhitePawn("e5");
+                setWhitePawn("c4");
+                setWhitePawn("c3");
+                setWhitePawn("d3");
+                setWhitePawn("e3");
+                setWhitePawn("e4");
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+
+            @DisplayName("킹은 적군의 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"c5", "d5", "e5", "c4", "c3", "d3", "e3", "e4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveEnemy(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackKing(new Position(originPosition)));
+                setWhitePawn("c5");
+                setWhitePawn("d5");
+                setWhitePawn("e5");
+                setWhitePawn("c4");
+                setWhitePawn("c3");
+                setWhitePawn("d3");
+                setWhitePawn("e3");
+                setWhitePawn("e4");
+
+                Assertions.assertThatCode(() -> chessGame.move(originPosition, targetPosition))
+                        .doesNotThrowAnyException();
+            }
+        }
     }
 
     private void setBlackPawn(final String position) {
