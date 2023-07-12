@@ -483,6 +483,51 @@ public class ChessGameTest {
                         .doesNotThrowAnyException();
             }
         }
+
+        @DisplayName("나이트 이동 관련 테스트")
+        @Nested
+        class Knight {
+            @DisplayName("나이트를 이동시킨다.")
+            @ValueSource(strings = {"c6", "e6", "f5", "f3", "e2", "c2", "b3", "b5"})
+            @ParameterizedTest(name = "position : {0}")
+            void move(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackKnight(new Position(originPosition)));
+                setBlackPawn("c5");
+                setBlackPawn("d5");
+                setBlackPawn("e5");
+                setBlackPawn("c4");
+                setBlackPawn("c3");
+                setBlackPawn("d3");
+                setBlackPawn("e3");
+                setBlackPawn("e4");
+
+                chessGame.move(originPosition, targetPosition);
+
+                assertEquals(Piece.createBlackKnight(new Position(targetPosition)), chessGame.findPiece(targetPosition));
+            }
+
+            @DisplayName("나이트가 이동하려는 곳에 아군이 있으면 예외처리한다.")
+            @ValueSource(strings = {"c6", "e6", "f5", "f3", "e2", "c2", "b3", "b5"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveAlly(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackKnight(new Position(originPosition)));
+                setBlackPawn("c6");
+                setBlackPawn("e6");
+                setBlackPawn("f5");
+                setBlackPawn("f3");
+                setBlackPawn("e2");
+                setBlackPawn("c2");
+                setBlackPawn("b3");
+                setBlackPawn("b5");
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+        }
     }
 
     private void setBlackPawn(final String position) {
