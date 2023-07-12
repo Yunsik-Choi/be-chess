@@ -368,6 +368,64 @@ public class ChessGameTest {
                         .isInstanceOf(IllegalArgumentException.class);
             }
         }
+
+        @DisplayName("퀸 이동 관련 테스트")
+        @Nested
+        class Queen {
+            @DisplayName("퀸을 이동시킨다.")
+            @ValueSource(strings = {"d8", "d7", "d6", "d5", "d3", "d2", "d1", "a4", "b4", "c4", "e4", "f4", "g4", "h4",
+                    "a7", "b6", "c5", "a1", "b2", "c3", "e3", "f2", "g1", "e5", "f6", "g7", "h8"})
+            @ParameterizedTest(name = "position : {0}")
+            void move(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createWhiteQueen(new Position(originPosition)));
+
+                chessGame.move(originPosition, targetPosition);
+
+                assertEquals(Piece.createWhiteQueen(new Position(targetPosition)), chessGame.findPiece(targetPosition));
+            }
+
+            @DisplayName("퀸은 아군의 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"c5", "d5", "e5", "c4", "c3", "d3", "e3", "e4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveAlly(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createWhiteQueen(new Position(originPosition)));
+                setWhitePawn("c5");
+                setWhitePawn("d5");
+                setWhitePawn("e5");
+                setWhitePawn("c4");
+                setWhitePawn("c3");
+                setWhitePawn("d3");
+                setWhitePawn("e3");
+                setWhitePawn("e4");
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+
+            @DisplayName("퀸은 적군의 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"b6", "d6", "f6", "f4", "f2", "d2", "b2", "b4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveEnemy(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createWhiteQueen(new Position(originPosition)));
+                setWhitePawn("c5");
+                setWhitePawn("d5");
+                setWhitePawn("e5");
+                setWhitePawn("c4");
+                setWhitePawn("c3");
+                setWhitePawn("d3");
+                setWhitePawn("e3");
+                setWhitePawn("e4");
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+        }
     }
 
     private void setBlackPawn(final String position) {
