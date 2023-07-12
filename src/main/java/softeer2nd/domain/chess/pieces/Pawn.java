@@ -28,6 +28,7 @@ public class Pawn extends Piece {
         validationTargetPositionEqualCurrentPosition(targetPosition);
 
         return directions.stream()
+                .filter(this.position::canMove)
                 .map(this.position::move)
                 .filter(movePosition -> movePosition.equals(targetPosition))
                 .map(movePosition -> {

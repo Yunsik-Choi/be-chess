@@ -38,9 +38,17 @@ public class Position {
     }
 
     private void validationPositionOutOfBound(final int xPos, final int yPos) {
-        if (xPos < 0 || xPos >= WIDTH || yPos < 0 || yPos >= ChessGame.HEIGHT) {
+        if (isPositionOutOfBoardSize(xPos, yPos)) {
             throw new IllegalArgumentException("위치 정보가 체스판의 크기를 벗어났습니다.");
         }
+    }
+
+    public boolean canMove(final Direction direction) {
+        return !isPositionOutOfBoardSize(this.x - direction.getXDegree(), this.y - direction.getYDegree());
+    }
+
+    private boolean isPositionOutOfBoardSize(final int xPos, final int yPos) {
+        return xPos < 0 || xPos >= WIDTH || yPos < 0 || yPos >= ChessGame.HEIGHT;
     }
 
     public int getX() {
