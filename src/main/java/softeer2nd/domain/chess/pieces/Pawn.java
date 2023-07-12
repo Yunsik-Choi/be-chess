@@ -1,6 +1,8 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pawn extends Piece {
     private static final String REPRESENTATION = "p";
@@ -27,34 +29,41 @@ public class Pawn extends Piece {
     public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         validationTargetPositionEqualCurrentPosition(targetPosition);
 
-        return directions.stream()
-                .filter(this.position::canMove)
-                .map(this.position::move)
-                .filter(movePosition -> movePosition.equals(targetPosition))
-                .map(movePosition -> {
-                    validationMoveAnotherPosition(targetPosition, board, movePosition);
-                    return new Pawn(this.color, movePosition, this.directions);
-                })
+        return this.getMovablePosition(position, board).stream()
+                .filter(position -> position.equals(targetPosition))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("이동에 실패했습니다."));
+                .map(position -> new Pawn(this.color, position, this.directions))
+                .orElseThrow(moveFailException());
     }
 
-    private void validationTargetPositionEqualCurrentPosition(final Position targetPosition) {
-        if (targetPosition.equals(this.position)) {
-            throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
-        }
+    @Override
+    protected List<Position> getMovablePosition(final Position position, final List<List<Piece>> board) {
+        return directions.stream()
+                .flatMap(direction -> getMovablePosition(position, direction, board).stream())
+                .collect(Collectors.toUnmodifiableList());
     }
 
-    private void validationMoveAnotherPosition(
-            final Position targetPosition,
-            final List<List<Piece>> board,
-            final Position movePosition
+    private List<Position> getMovablePosition(
+            final Position position,
+            final Direction direction,
+            final List<List<Piece>> board
     ) {
-        if (isSameColor(movePosition, board)) {
-            throw new IllegalArgumentException("이동하려는 위치에 같은 편 기물이 존재합니다.");
+        ArrayList<Position> result = new ArrayList<>();
+        if (!position.canMove(direction) || isSameColor(position.move(direction), board)) {
+            return result;
         }
-        if (this.position.getX() != targetPosition.getX() && !isEnemy(this.color, movePosition, board)) {
-            throw new IllegalArgumentException("폰은 대각선에 다른 색상의 기물이 있어야만 움직일 수 있습니다.");
+        Position movePosition = position.move(direction);
+        if (isMoveEnemy(board, movePosition) || isMoveBlank(board, movePosition)) {
+            result.add(movePosition);
         }
+        return result;
+    }
+
+    private boolean isMoveEnemy(final List<List<Piece>> board, final Position movePosition) {
+        return this.position.getX() != movePosition.getX() && isEnemy(this.color, movePosition, board);
+    }
+
+    private boolean isMoveBlank(final List<List<Piece>> board, final Position movePosition) {
+        return this.position.getX() == movePosition.getX() && isBlank(movePosition, board);
     }
 }

@@ -3,6 +3,7 @@ package softeer2nd.domain.chess.pieces;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 public abstract class Piece {
     public enum Color {
@@ -87,6 +88,11 @@ public abstract class Piece {
 
     public abstract Piece move(final Position targetPosition, final List<List<Piece>> board);
 
+    protected abstract List<Position> getMovablePosition(
+            final Position position,
+            final List<List<Piece>> board
+    );
+
     public Color getColor() {
         return this.color;
     }
@@ -116,7 +122,7 @@ public abstract class Piece {
     }
 
     public boolean isBlank(final Position position, final List<List<Piece>> board) {
-        return board.get(position.getY()).get(position.getY()).color.equals(Color.NOCOLOR);
+        return board.get(position.getY()).get(position.getX()).color.equals(Color.NOCOLOR);
     }
 
     public boolean isEnemy(final Color color, final Position position, final List<List<Piece>> board) {
@@ -125,6 +131,16 @@ public abstract class Piece {
             return false;
         }
         return board.get(position.getY()).get(position.getX()).color.equals(enemy.get());
+    }
+
+    protected void validationTargetPositionEqualCurrentPosition(final Position targetPosition) {
+        if (targetPosition.equals(this.position)) {
+            throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
+        }
+    }
+
+    protected static Supplier<RuntimeException> moveFailException() {
+        return () -> new IllegalArgumentException("이동에 실패했습니다.");
     }
 
     @Override
