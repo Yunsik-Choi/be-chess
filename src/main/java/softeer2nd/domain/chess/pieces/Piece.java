@@ -141,8 +141,8 @@ public abstract class Piece {
         return new Pawn(this.color, this.getPosition(), this.directions).equals(this);
     }
 
-    public boolean isNoPiece() {
-        return new Blank(this.color, this.getPosition(), this.directions).equals(this);
+    public boolean isNoColor() {
+        return this.getColor().equals(Color.NOCOLOR);
     }
 
     public boolean isSameColor(final Position position, final List<List<Piece>> board) {

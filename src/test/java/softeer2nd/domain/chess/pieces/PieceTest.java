@@ -157,12 +157,12 @@ public class PieceTest {
         );
     }
 
-    @DisplayName("기물이 NO PIECE이면 true를 반환한다")
+    @DisplayName("기물이 색상이 NoColor이면 true를 반환한다")
     @Test
-    void isNoPiece() {
+    void isNoColor() {
         assertAll(
-                () -> assertThat(Piece.createBlank(a1).isNoPiece()).isTrue(),
-                () -> assertThat(Piece.createBlackPawn(a1).isNoPiece()).isFalse()
+                () -> assertThat(Piece.createBlank(a1).isNoColor()).isTrue(),
+                () -> assertThat(Piece.createBlackPawn(a1).isNoColor()).isFalse()
         );
     }
 

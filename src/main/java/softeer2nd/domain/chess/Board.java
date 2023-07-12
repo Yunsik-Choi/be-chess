@@ -13,15 +13,13 @@ public interface Board {
 
     void move(final String sourcePosition, final String targetPosition);
 
-    void move(final String position, final Piece piece);
-
     void addPiece(final String position, final Piece piece);
 
     List<Rank> getRanks();
 
     default int pieceCount() {
         return getRanks().stream()
-                .mapToInt(rank -> Long.valueOf(rank.getPieces().stream().filter(Piece::isNoPiece).count()).intValue())
+                .mapToInt(rank -> Long.valueOf(rank.getPieces().stream().filter(Piece::isNoColor).count()).intValue())
                 .sum();
     }
 
