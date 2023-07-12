@@ -289,6 +289,21 @@ public class ChessGameTest {
                         .isInstanceOf(IllegalArgumentException.class);
             }
         }
+
+        @DisplayName("공백 이동 관련 테스트")
+        @Nested
+        class Blank {
+            @DisplayName("공백은 이동할 수 없습니다.")
+            @ValueSource(strings = {"c4", "c3", "c2", "d2", "e2", "e3", "e4", "d4"})
+            @ParameterizedTest(name = "position : {0}")
+            void move(String targetPosition) {
+                chessGame.initialize();
+                String originPosition = "d3";
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+        }
     }
 
     private void setBlackPawn(final String position) {
