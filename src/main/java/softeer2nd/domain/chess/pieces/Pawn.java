@@ -2,7 +2,6 @@ package softeer2nd.domain.chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Pawn extends Piece {
     private static final String REPRESENTATION = "p";
@@ -29,7 +28,8 @@ public class Pawn extends Piece {
     public Piece move(final Position targetPosition, final List<List<Piece>> board) {
         validationTargetPositionEqualCurrentPosition(targetPosition);
 
-        return this.getMovablePosition(position, board).stream()
+        return this.directions.stream()
+                .flatMap(direction -> getMovablePosition(this.position, direction, board).stream())
                 .filter(position -> position.equals(targetPosition))
                 .findFirst()
                 .map(position -> new Pawn(this.color, position, this.directions))
@@ -37,26 +37,15 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected List<Position> getMovablePosition(final Position position, final List<List<Piece>> board) {
-        return directions.stream()
-                .flatMap(direction -> getMovablePosition(position, direction, board).stream())
-                .collect(Collectors.toUnmodifiableList());
-    }
-
-    private List<Position> getMovablePosition(
-            final Position position,
+    protected void addMovablePosition(
             final Direction direction,
-            final List<List<Piece>> board
+            final List<List<Piece>> board,
+            final ArrayList<Position> result,
+            final Position movePosition
     ) {
-        ArrayList<Position> result = new ArrayList<>();
-        if (!position.canMove(direction) || isSameColor(position.move(direction), board)) {
-            return result;
-        }
-        Position movePosition = position.move(direction);
         if (isMoveEnemy(board, movePosition) || isMoveBlank(board, movePosition)) {
             result.add(movePosition);
         }
-        return result;
     }
 
     private boolean isMoveEnemy(final List<List<Piece>> board, final Position movePosition) {

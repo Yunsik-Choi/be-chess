@@ -1,5 +1,6 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -88,9 +89,11 @@ public abstract class Piece {
 
     public abstract Piece move(final Position targetPosition, final List<List<Piece>> board);
 
-    protected abstract List<Position> getMovablePosition(
-            final Position position,
-            final List<List<Piece>> board
+    protected abstract void addMovablePosition(
+            final Direction direction,
+            final List<List<Piece>> board,
+            final ArrayList<Position> result,
+            final Position movePosition
     );
 
     public Color getColor() {
@@ -137,6 +140,20 @@ public abstract class Piece {
         if (targetPosition.equals(this.position)) {
             throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
         }
+    }
+
+    protected List<Position> getMovablePosition(
+            final Position position,
+            final Direction direction,
+            final List<List<Piece>> board
+    ) {
+        ArrayList<Position> result = new ArrayList<>();
+        if (!position.canMove(direction) || isSameColor(position.move(direction), board)) {
+            return result;
+        }
+        Position movePosition = position.move(direction);
+        addMovablePosition(direction, board, result, movePosition);
+        return result;
     }
 
     protected static Supplier<RuntimeException> moveFailException() {
