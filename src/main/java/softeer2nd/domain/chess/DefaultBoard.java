@@ -41,16 +41,11 @@ public class DefaultBoard implements Board {
     public void move(final String sourcePosition, final String targetPosition) {
         Piece piece = findPiece(sourcePosition);
 
-        move(targetPosition, piece);
-    }
-
-    @Override
-    public void move(final String position, final Piece piece) {
-        Position movePosition = new Position(position);
-        Position originPosition = piece.getPosition();
-
+        Position movePosition = new Position(targetPosition);
         this.ranks.get(movePosition.getY())
                 .set(movePosition.getX(), this.move(piece, movePosition, getPieceList()));
+
+        Position originPosition = piece.getPosition();
         this.ranks.get(originPosition.getY())
                 .set(originPosition.getX(), Piece.createBlank(originPosition));
     }

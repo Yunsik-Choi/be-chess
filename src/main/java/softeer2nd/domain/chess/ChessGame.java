@@ -39,17 +39,11 @@ public class ChessGame {
     }
 
     public void move(final String sourcePosition, final String targetPosition) {
-        Piece piece = findPiece(sourcePosition);
-
-        move(targetPosition, piece);
+        board.move(sourcePosition, targetPosition);
     }
 
     public Piece findPiece(final String position) {
         return this.board.findPiece(position);
-    }
-
-    public void move(final String position, final Piece piece) {
-        this.board.move(position, piece);
     }
 
     public void addPiece(final String position, final Piece piece) {
