@@ -268,7 +268,7 @@ public class ChessGameTest {
                 chessGame.initializeEmpty();
                 String originPosition = "d4";
                 chessGame.addPiece(originPosition, Piece.createBlackBishop(new Position(originPosition)));
-                setWhitePawn("b6");
+                setBlackPawn("b6");
                 setBlackPawn("c3");
                 setBlackPawn("e3");
                 setBlackPawn("f6");
@@ -299,6 +299,70 @@ public class ChessGameTest {
             void move(String targetPosition) {
                 chessGame.initialize();
                 String originPosition = "d3";
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+        }
+
+
+        @DisplayName("룩 이동 관련 테스트")
+        @Nested
+        class Rook {
+            @DisplayName("룩을 이동시킨다.")
+            @ValueSource(strings = {"d8", "d7", "d6", "d5", "d3", "d2", "d1", "a4", "b4", "c4", "e4", "f4", "g4", "h4"})
+            @ParameterizedTest(name = "position : {0}")
+            void move(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackRook(new Position(originPosition)));
+
+                chessGame.move(originPosition, targetPosition);
+
+                assertEquals(
+                        Piece.createBlackRook(new Position(targetPosition)), chessGame.findPiece(targetPosition)
+                );
+            }
+
+            @DisplayName("룩은 대각선으로 이동할 수 없습니다.")
+            @ValueSource(strings = {"a7", "b6", "c5", "a1", "b2", "c3", "e3", "f2", "g1", "e5", "f6", "g7", "h8"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveDiagonal(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackRook(new Position(originPosition)));
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+
+            @DisplayName("룩은 선형으로 적군의 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"d7", "d1", "b4", "f4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveEnemy(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackRook(new Position(originPosition)));
+                setWhitePawn("d6");
+                setWhitePawn("d2");
+                setWhitePawn("c4");
+                setWhitePawn("e4");
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
+
+            @DisplayName("룩은 선형으로 아군의 전 위치까지 이동할 수 있다.")
+            @ValueSource(strings = {"d7", "d1", "b4", "e4"})
+            @ParameterizedTest(name = "position : {0}")
+            void moveAlly(String targetPosition) {
+                chessGame.initializeEmpty();
+                String originPosition = "d4";
+                chessGame.addPiece(originPosition, Piece.createBlackRook(new Position(originPosition)));
+                setBlackPawn("d7");
+                setBlackPawn("d1");
+                setBlackPawn("b4");
+                setBlackPawn("e4");
 
                 Assertions.assertThatThrownBy(() -> chessGame.move(originPosition, targetPosition))
                         .isInstanceOf(IllegalArgumentException.class);
