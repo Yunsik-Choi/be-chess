@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.common.util.StringUtils.appendNewLine;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import softeer2nd.domain.chess.pieces.Piece;
 import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Position;
@@ -166,34 +169,73 @@ public class ChessGameTest {
     @DisplayName("기물 이동 관련 테스트")
     @Nested
     class MovePiece {
-        @DisplayName("흰색 폰을 이동시킨다.")
-        @Test
-        public void moveWhitePawn() {
-            chessGame.initialize();
-            String sourcePosition = "b2";
-            String targetPosition = "b3";
+        @DisplayName("폰 이동 관련 테스트")
+        @Nested
+        class Pawn {
+            @DisplayName("흰색 폰을 이동시킨다.")
+            @ValueSource(strings = {"a3", "b3", "c3"})
+            @ParameterizedTest(name = "position : {0}")
+            public void moveWhitePawn(String targetPosition) {
+                chessGame.initialize();
+                setBlackPawn("a3");
+                setBlackPawn("c3");
+                String sourcePosition = "b2";
 
-            chessGame.move(sourcePosition, targetPosition);
+                chessGame.move(sourcePosition, targetPosition);
 
-            assertAll(
-                    () -> assertEquals(
-                            Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
-                    ),
-                    () -> assertEquals(
-                            Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
-                    )
-            );
+                assertAll(
+                        () -> assertEquals(
+                                Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
+                        ),
+                        () -> assertEquals(
+                                Piece.createWhitePawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
+                        )
+                );
+            }
+
+            @DisplayName("검은색 폰을 이동시킨다.")
+            @ValueSource(strings = {"a6", "b6", "c6"})
+            @ParameterizedTest(name = "position : {0}")
+            public void moveBlackPawn(String targetPosition) {
+                chessGame.initialize();
+                setWhitePawn("a6");
+                setWhitePawn("c6");
+                String sourcePosition = "b7";
+
+                chessGame.move(sourcePosition, targetPosition);
+
+                assertAll(
+                        () -> assertEquals(
+                                Piece.createBlank(new Position(sourcePosition)), chessGame.findPiece(sourcePosition)
+                        ),
+                        () -> assertEquals(
+                                Piece.createBlackPawn(new Position(targetPosition)), chessGame.findPiece(targetPosition)
+                        )
+                );
+            }
+
+            @DisplayName("전방에 다른 기물이 없거나 대각선에 다른 색상 기물이 없다면 폰은 대각선으로 이동할 수 없다.")
+            @ValueSource(strings = {"a3", "b3", "c3"})
+            @ParameterizedTest(name = "position : {0}")
+            public void canNotMovePawn(String targetPosition) {
+                chessGame.initialize();
+                setWhitePawn("b3");
+                String sourcePosition = "b2";
+
+                Assertions.assertThatThrownBy(() -> chessGame.move(sourcePosition, targetPosition))
+                        .isInstanceOf(IllegalArgumentException.class);
+            }
         }
     }
 
     private void setBlackPawn(final String position) {
         Piece leftDiagonalBlackPiece = Piece.createBlackPawn(new Position(position));
-        chessGame.move(position, leftDiagonalBlackPiece);
+        chessGame.addPiece(position, leftDiagonalBlackPiece);
     }
 
     private void setWhitePawn(final String position) {
-        Piece leftDiagonalBlackPiece = Piece.createBlackPawn(new Position(position));
-        chessGame.move(position, leftDiagonalBlackPiece);
+        Piece leftDiagonalBlackPiece = Piece.createWhitePawn(new Position(position));
+        chessGame.addPiece(position, leftDiagonalBlackPiece);
     }
 
     private void addPiece(String position, Piece piece) {
