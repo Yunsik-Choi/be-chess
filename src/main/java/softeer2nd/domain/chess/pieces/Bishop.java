@@ -25,7 +25,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    protected Piece create(final Position position) {
+    public Piece create(final Position position) {
         return new Bishop(this.color, position, this.directions);
     }
 

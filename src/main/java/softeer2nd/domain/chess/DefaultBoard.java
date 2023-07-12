@@ -49,11 +49,31 @@ public class DefaultBoard implements Board {
         Position movePosition = new Position(position);
         Position originPosition = piece.getPosition();
 
-        this.ranks.get(
-                movePosition.getY()).set(movePosition.getX(),
-                piece.move(movePosition, this.ranks.stream().map(Rank::getPieces).collect(Collectors.toList()))
-        );
-        this.ranks.get(originPosition.getY()).set(originPosition.getX(), Piece.createBlank(originPosition));
+        this.ranks.get(movePosition.getY())
+                .set(movePosition.getX(), this.move(piece, movePosition, getPieceList()));
+        this.ranks.get(originPosition.getY())
+                .set(originPosition.getX(), Piece.createBlank(originPosition));
+    }
+
+    private List<List<Piece>> getPieceList() {
+        return this.ranks.stream().map(Rank::getPieces).collect(Collectors.toUnmodifiableList());
+    }
+
+    private Piece move(final Piece piece, final Position targetPosition, final List<List<Piece>> board) {
+        validationTargetPositionEqualCurrentPosition(piece, targetPosition);
+
+        return piece.getDirections().stream()
+                .flatMap(direction -> piece.getMovablePosition(piece.getPosition(), direction, board).stream())
+                .filter(position -> position.equals(targetPosition))
+                .findFirst()
+                .map(piece::create)
+                .orElseThrow(() -> new IllegalArgumentException("이동에 실패했습니다."));
+    }
+
+    private void validationTargetPositionEqualCurrentPosition(final Piece piece, final Position targetPosition) {
+        if (piece.isSamePosition(targetPosition)) {
+            throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
+        }
     }
 
     @Override

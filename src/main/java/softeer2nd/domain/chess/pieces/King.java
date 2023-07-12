@@ -25,7 +25,7 @@ public class King extends Piece {
     }
 
     @Override
-    protected Piece create(final Position position) {
+    public Piece create(final Position position) {
         return new King(this.color, position, this.directions);
     }
 

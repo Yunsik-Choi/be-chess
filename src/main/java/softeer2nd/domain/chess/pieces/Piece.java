@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public abstract class Piece {
     public enum Color {
@@ -94,7 +93,11 @@ public abstract class Piece {
             final Position movePosition
     );
 
-    protected abstract Piece create(final Position position);
+    public abstract Piece create(final Position position);
+
+    public boolean isSamePosition(final Position targetPosition) {
+        return this.position.equals(targetPosition);
+    }
 
     public Color getColor() {
         return this.color;
@@ -102,6 +105,10 @@ public abstract class Piece {
 
     public Position getPosition() {
         return this.position;
+    }
+
+    public List<Direction> getDirections() {
+        return this.directions;
     }
 
     public boolean isWhite() {
@@ -136,24 +143,7 @@ public abstract class Piece {
         return board.get(position.getY()).get(position.getX()).color.equals(enemy.get());
     }
 
-    public Piece move(final Position targetPosition, final List<List<Piece>> board) {
-        validationTargetPositionEqualCurrentPosition(targetPosition);
-
-        return this.directions.stream()
-                .flatMap(direction -> getMovablePosition(this.position, direction, board).stream())
-                .filter(position -> position.equals(targetPosition))
-                .findFirst()
-                .map(this::create)
-                .orElseThrow(moveFailException());
-    }
-
-    private void validationTargetPositionEqualCurrentPosition(final Position targetPosition) {
-        if (targetPosition.equals(this.position)) {
-            throw new IllegalArgumentException("현재 위치와 같은 위치로 이동할 수 없습니다.");
-        }
-    }
-
-    protected List<Position> getMovablePosition(
+    public List<Position> getMovablePosition(
             final Position position,
             final Direction direction,
             final List<List<Piece>> board
@@ -165,10 +155,6 @@ public abstract class Piece {
         Position movePosition = position.move(direction);
         addMovablePosition(direction, board, result, movePosition);
         return result;
-    }
-
-    private static Supplier<RuntimeException> moveFailException() {
-        return () -> new IllegalArgumentException("이동에 실패했습니다.");
     }
 
     @Override
