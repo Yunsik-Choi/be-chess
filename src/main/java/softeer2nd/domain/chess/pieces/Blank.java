@@ -9,6 +9,16 @@ public class Blank extends Piece {
 
     protected Blank(final Color color, final Position position, final List<Direction> directions) {
         super(POINT, REPRESENTATION, color, position, directions);
+        validationCreateBlank(color, directions);
+    }
+
+    private static void validationCreateBlank(final Color color, final List<Direction> directions) {
+        if (!color.equals(Color.NOCOLOR)) {
+            throw new IllegalArgumentException("공백 색상이 아닙니다.");
+        }
+        if (!directions.isEmpty()) {
+            throw new IllegalArgumentException("공백은 방향이 이동할 수 있는 방향이 없습니다.");
+        }
     }
 
     @Override
