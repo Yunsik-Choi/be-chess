@@ -8,20 +8,7 @@ public class Bishop extends Piece {
     private static final double POINT = 3.0;
 
     protected Bishop(final Color color, final Position position, final List<Direction> directions) {
-        super(color, position, directions);
-    }
-
-    @Override
-    public String getRepresentationPerPiece() {
-        if (isBlack()) {
-            return REPRESENTATION.toUpperCase();
-        }
-        return REPRESENTATION;
-    }
-
-    @Override
-    public double getPoint() {
-        return POINT;
+        super(POINT, REPRESENTATION, color, position, directions);
     }
 
     @Override

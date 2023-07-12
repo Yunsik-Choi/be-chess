@@ -20,11 +20,22 @@ public abstract class Piece {
         }
     }
 
+    private final double point;
+    private final String representation;
+
     protected final Color color;
     protected final Position position;
     protected final List<Direction> directions;
 
-    protected Piece(final Color color, final Position position, final List<Direction> directions) {
+    protected Piece(
+            final double point,
+            final String representation,
+            final Color color,
+            final Position position,
+            final List<Direction> directions
+    ) {
+        this.point = point;
+        this.representation = representation;
         this.color = color;
         this.position = position;
         this.directions = directions;
@@ -82,10 +93,6 @@ public abstract class Piece {
         return new King(Color.BLACK, position, Direction.everyDirection());
     }
 
-    public abstract String getRepresentationPerPiece();
-
-    public abstract double getPoint();
-
     protected abstract void addMovablePosition(
             final Direction direction,
             final List<List<Piece>> board,
@@ -97,6 +104,17 @@ public abstract class Piece {
 
     public boolean isSamePosition(final Position targetPosition) {
         return this.position.equals(targetPosition);
+    }
+
+    public String getRepresentationPerPiece() {
+        if (isBlack()) {
+            return representation.toUpperCase();
+        }
+        return representation;
+    }
+
+    public double getPoint() {
+        return this.point;
     }
 
     public Color getColor() {
