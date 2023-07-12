@@ -25,6 +25,14 @@ public class Blank extends Piece {
 
     @Override
     public Piece move(final Position targetPosition, final List<List<Piece>> board) {
-        return new Blank(this.color, targetPosition, this.directions);
+        return getMovablePosition(position, board).stream()
+                .findFirst()
+                .map(position -> new Pawn(this.color, position, directions))
+                .orElseThrow(moveFailException());
+    }
+
+    @Override
+    protected List<Position> getMovablePosition(final Position position, final List<List<Piece>> board) {
+        return List.of();
     }
 }
