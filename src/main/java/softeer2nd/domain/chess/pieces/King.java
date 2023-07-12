@@ -1,5 +1,6 @@
 package softeer2nd.domain.chess.pieces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Piece {
@@ -25,6 +26,23 @@ public class King extends Piece {
 
     @Override
     public Piece move(final Position targetPosition, final List<List<Piece>> board) {
-        return new King(this.color, targetPosition, this.directions);
+        validationTargetPositionEqualCurrentPosition(targetPosition);
+
+        return this.directions.stream()
+                .flatMap(direction -> getMovablePosition(this.position, direction, board).stream())
+                .filter(position -> position.equals(targetPosition))
+                .findFirst()
+                .map(position -> new King(this.color, position, this.directions))
+                .orElseThrow(moveFailException());
+    }
+
+    @Override
+    protected void addMovablePosition(
+            final Direction direction,
+            final List<List<Piece>> board,
+            final ArrayList<Position> result,
+            final Position movePosition
+    ) {
+        result.add(movePosition);
     }
 }
