@@ -10,14 +10,14 @@ public abstract class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
 
-        public Color getEnemy() {
+        public Optional<Color> getEnemy() {
             if (this.equals(WHITE)) {
-                return BLACK;
+                return Optional.of(BLACK);
             }
             if (this.equals(BLACK)) {
-                return WHITE;
+                return Optional.of(WHITE);
             }
-            return null;
+            return Optional.empty();
         }
     }
 
@@ -129,7 +129,7 @@ public abstract class Piece {
     }
 
     public boolean isEnemy(final Color color, final Position position, final List<List<Piece>> board) {
-        Optional<Color> enemy = Optional.ofNullable(color.getEnemy());
+        Optional<Color> enemy = color.getEnemy();
         if (enemy.isEmpty()) {
             return false;
         }
