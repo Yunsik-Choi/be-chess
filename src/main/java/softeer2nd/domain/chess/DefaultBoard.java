@@ -38,8 +38,10 @@ public class DefaultBoard implements Board {
     }
 
     @Override
-    public void move(final String sourcePosition, final String targetPosition) {
+    public void move(final String sourcePosition, final String targetPosition, final Turn turn) {
         Piece piece = findPiece(sourcePosition);
+
+        validationTurn(turn, piece);
 
         Position movePosition = new Position(targetPosition);
         this.ranks.get(movePosition.getY())
@@ -48,6 +50,12 @@ public class DefaultBoard implements Board {
         Position originPosition = piece.getPosition();
         this.ranks.get(originPosition.getY())
                 .set(originPosition.getX(), Piece.createBlank(originPosition));
+    }
+
+    private void validationTurn(final Turn turn, final Piece piece) {
+        if (!turn.is(piece.getColor())) {
+            throw new IllegalArgumentException(String.format("지금은 %s 턴입니다.", turn.name()));
+        }
     }
 
     private List<List<Piece>> getPieceList() {

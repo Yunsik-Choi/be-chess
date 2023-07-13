@@ -10,7 +10,7 @@ public interface Board {
 
     void initialize();
 
-    void move(final String sourcePosition, final String targetPosition);
+    void move(final String sourcePosition, final String targetPosition, final Turn turn);
 
     void addPiece(final String position, final Piece piece);
 

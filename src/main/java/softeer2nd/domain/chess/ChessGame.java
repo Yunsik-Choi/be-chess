@@ -14,11 +14,18 @@ public class ChessGame {
     private final ChessView chessView;
     private final ChessPointCalculator chessPointCalculator;
     private final Board board;
+    private Turn turn;
 
-    public ChessGame(final ChessView chessView, final ChessPointCalculator chessPointCalculator, final Board board) {
+    public ChessGame(
+            final ChessView chessView,
+            final ChessPointCalculator chessPointCalculator,
+            final Board board,
+            final Turn turn
+    ) {
         this.chessView = chessView;
         this.chessPointCalculator = chessPointCalculator;
         this.board = board;
+        this.turn = turn;
     }
 
     public void initializeEmpty() {
@@ -38,7 +45,8 @@ public class ChessGame {
     }
 
     public void move(final String sourcePosition, final String targetPosition) {
-        board.move(sourcePosition, targetPosition);
+        board.move(sourcePosition, targetPosition, turn);
+        this.turn = turn.end();
     }
 
     public Piece findPiece(final String position) {
@@ -55,5 +63,9 @@ public class ChessGame {
 
     public List<Piece> sortByPoint(final Color color, final PieceComparator pieceComparator) {
         return this.board.sortByPoint(color, pieceComparator);
+    }
+
+    public String printTurn() {
+        return this.turn.name();
     }
 }

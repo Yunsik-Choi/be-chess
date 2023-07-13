@@ -6,6 +6,7 @@ import softeer2nd.domain.chess.ChessGame;
 import softeer2nd.domain.chess.DefaultBoard;
 import softeer2nd.domain.chess.DefaultChessPointCalculator;
 import softeer2nd.domain.chess.DefaultChessView;
+import softeer2nd.domain.chess.Turn;
 import softeer2nd.view.InputView;
 import softeer2nd.view.OutputView;
 
@@ -22,7 +23,8 @@ public class ChessGameController {
         ChessGame chessGame = new ChessGame(
                 new DefaultChessView(),
                 new DefaultChessPointCalculator(),
-                new DefaultBoard()
+                new DefaultBoard(),
+                Turn.WHITE
         );
 
         play(chessGame);
@@ -30,7 +32,7 @@ public class ChessGameController {
 
     private void play(final ChessGame chessGame) {
         try {
-            outputView.printCommandInputGuideLine(values());
+            outputView.printCommandInputGuideLine(chessGame.printTurn(), values());
             String command = inputView.command();
             if (isNotExistsCommand(command)) {
                 throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
