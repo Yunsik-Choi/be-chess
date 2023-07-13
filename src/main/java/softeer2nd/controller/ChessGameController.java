@@ -17,22 +17,27 @@ public class ChessGameController {
     }
 
     public void main() {
-        ChessGame chessGame = new ChessGame(new DefaultChessView(), new DefaultChessPointCalculator(), new DefaultBoard());
+        ChessGame chessGame = new ChessGame(new DefaultChessView(), new DefaultChessPointCalculator(),
+                new DefaultBoard());
         while (true) {
-            String command = inputView.command();
-            if (Command.isNotExistsCommand(command)) {
-                throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
+            try {
+                String command = inputView.command();
+                if (Command.isNotExistsCommand(command)) {
+                    throw new IllegalArgumentException("잘못된 커맨드 입력입니다.");
+                }
+                if (Command.isEnd(command)) {
+                    break;
+                }
+                if (Command.isStart(command)) {
+                    chessGame.initialize();
+                }
+                if (Command.isMove(command)) {
+                    chessGame.move(Command.moveSource(command), Command.moveTarget(command));
+                }
+                outputView.print(chessGame.show());
+            } catch (Exception e) {
+                outputView.print(e.getMessage());
             }
-            if (Command.isEnd(command)) {
-                break;
-            }
-            if (Command.isStart(command)) {
-                chessGame.initialize();
-            }
-            if (Command.isMove(command)) {
-                chessGame.move(Command.moveSource(command), Command.moveTarget(command));
-            }
-            outputView.print(chessGame.show());
         }
     }
 }
