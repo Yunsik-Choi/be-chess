@@ -11,6 +11,6 @@ public class Main {
                 new ConsoleInputView()
         );
 
-        chessGameController.main();
+        chessGameController.start();
     }
 }

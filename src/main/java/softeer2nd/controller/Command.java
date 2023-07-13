@@ -43,4 +43,8 @@ public enum Command {
     public static String moveTarget(final String command) {
         return command.split(MOVE_DELIMITER)[MOVE_TARGET_INDEX];
     }
+
+    public String getValue() {
+        return value;
+    }
 }
