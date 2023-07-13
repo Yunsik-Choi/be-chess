@@ -1,12 +1,12 @@
 package softeer2nd.domain.chess.pieces;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.domain.chess.pieces.Piece.Color;
+import softeer2nd.domain.chess.Color;
 
 @DisplayName("킹 관련 기능")
 class KingTest {

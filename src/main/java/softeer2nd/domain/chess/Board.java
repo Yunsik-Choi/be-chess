@@ -3,7 +3,6 @@ package softeer2nd.domain.chess;
 import java.util.List;
 import java.util.stream.Collectors;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.Piece.Color;
 import softeer2nd.domain.chess.pieces.Position;
 
 public interface Board {

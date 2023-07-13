@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.domain.chess.pieces.Piece.Color;
+import softeer2nd.domain.chess.Color;
 
 @DisplayName("비숍 관련 기능")
 class BishopTest {

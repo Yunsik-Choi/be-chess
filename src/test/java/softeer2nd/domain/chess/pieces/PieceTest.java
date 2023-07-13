@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import softeer2nd.domain.chess.pieces.Piece.Color;
+import softeer2nd.domain.chess.Color;
 
 @DisplayName("기물 관련 기능")
 public class PieceTest {

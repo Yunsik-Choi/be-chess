@@ -2,7 +2,6 @@ package softeer2nd.domain.chess;
 
 import java.util.List;
 import softeer2nd.domain.chess.pieces.Piece;
-import softeer2nd.domain.chess.pieces.Piece.Color;
 
 public class ChessGame {
     public static final int HEIGHT = 8;

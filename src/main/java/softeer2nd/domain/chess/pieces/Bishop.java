@@ -2,6 +2,7 @@ package softeer2nd.domain.chess.pieces;
 
 import java.util.ArrayList;
 import java.util.List;
+import softeer2nd.domain.chess.Color;
 
 public class Bishop extends Piece {
     private static final String REPRESENTATION = "b";

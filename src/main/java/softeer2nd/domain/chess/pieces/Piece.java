@@ -4,22 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import softeer2nd.domain.chess.Color;
 
 public abstract class Piece {
-    public enum Color {
-        WHITE, BLACK, NOCOLOR;
-
-        public Optional<Color> getEnemy() {
-            if (this.equals(WHITE)) {
-                return Optional.of(BLACK);
-            }
-            if (this.equals(BLACK)) {
-                return Optional.of(WHITE);
-            }
-            return Optional.empty();
-        }
-    }
-
     private final double point;
     private final String representation;
 
